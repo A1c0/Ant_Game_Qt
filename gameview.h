@@ -25,6 +25,7 @@ public:
         this->control = control;
     }
     void update(QList<Item> data);
+    void test();
 
 private:
     Ui::GameView *ui;

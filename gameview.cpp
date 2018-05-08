@@ -1,5 +1,6 @@
 #include "gameview.h"
 #include "ui_gameview.h"
+#include <QLabel>
 
 GameView::GameView(QWidget *parent) :
     QMainWindow(parent),
@@ -37,4 +38,16 @@ void GameView::update(QList<Item> data)
         ui->graphicsView->scene()->addItem(item.getGraphicData());
     }
 }
+
+void GameView::test()
+{
+    QGraphicsScene scene;
+    QLabel *gif_anim = new QLabel();
+    QMovie *movie = new QMovie(":/item/ant/ressources_ant_game/ant_static.gif");
+    gif_anim->setMovie(movie);
+    movie->start();
+    ui->graphicsView->scene()->addWidget(gif_anim);
+}
+
+
 
