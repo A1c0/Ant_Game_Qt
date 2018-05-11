@@ -9,7 +9,7 @@
 */
 #ifndef ANT_H
 #define ANT_H
-#include "unit.h";
+#include "unit.h"
 
 class Ant : public Unit
 {

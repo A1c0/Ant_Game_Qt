@@ -23,3 +23,11 @@ ItemProp *Item::getGraphicData() const
 {
     return graphicData;
 }
+
+void Item::setPositions(Point *pos){
+    this->pos = pos;
+}
+
+Point * Item::getPositions(){
+    return this->pos;
+}
