@@ -4,6 +4,7 @@
 #include "gameview.h"
 #include "gamemodel.h"
 #include "ant.h"
+#include <QMediaPlayer>
 
 class GameView;
 class GameModel;
@@ -17,6 +18,7 @@ private:
 public:
     Game(GameModel *model, GameView *view);
     void init_item();
+    void run_game();
 
 };
 

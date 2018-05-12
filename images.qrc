@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/icones">
         <file>ressources_ant_game/icone_app.png</file>
+        <file>ressources_ant_game/icone_app_soldier.png</file>
     </qresource>
     <qresource prefix="/background">
         <file>ressources_ant_game/herbe.png</file>
@@ -8,9 +9,11 @@
     <qresource prefix="/item">
         <file>ressources_ant_game/rock_1.png</file>
         <file>ressources_ant_game/rock_2.png</file>
+        <file>ressources_ant_game/Fourmilière.gif</file>
     </qresource>
     <qresource prefix="/item/ant">
         <file>ressources_ant_game/ant_moving.gif</file>
         <file>ressources_ant_game/ant_static.gif</file>
     </qresource>
+    <qresource prefix="/music"/>
 </RCC>

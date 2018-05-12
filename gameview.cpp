@@ -43,9 +43,11 @@ void GameView::test()
 {
     QGraphicsScene scene;
     QLabel *gif_anim = new QLabel();
-    QMovie *movie = new QMovie(":/item/ant/ressources_ant_game/ant_static.gif");
-    gif_anim->setMovie(movie);
-    movie->start();
+    /*
+    QMovie *essai = new QMovie("/item/ant/ressources_ant_game/ant_static.gif");
+    gif_anim->setMovie(essai);
+    essai->start();*/
+
     ui->graphicsView->scene()->addWidget(gif_anim);
 }
 
