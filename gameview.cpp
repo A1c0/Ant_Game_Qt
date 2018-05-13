@@ -53,3 +53,19 @@ void GameView::test()
 
 
 
+void GameView::on_harvesterButton_clicked()
+{
+    this->control->getModel()->addItem(new Ant(new Point(300,300)));
+    int nbr = 0;
+    for(int i = 0; i < this->control->getModel()->getDataItem().length(); i++)
+    {
+        nbr++;
+    }
+    this->ui->harvesterNumber->display(nbr);
+}
+
+void GameView::on_soldierButton_clicked()
+{
+
+}
+

@@ -27,6 +27,13 @@ public:
     void update(QList<Item> data);
     void test();
 
+private slots:
+    void on_harvesterButton_clicked();
+
+    void on_soldierButton_clicked();
+
+    void on_lcdNumber_overflow();
+
 private:
     Ui::GameView *ui;
     QGraphicsScene * scene;

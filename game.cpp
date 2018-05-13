@@ -10,32 +10,31 @@ Game::Game(GameModel *model, GameView *view) :
 
 void Game::init_item()
 {
-    QMediaPlayer *player = new QMediaPlayer;
+   /* QMediaPlayer *player = new QMediaPlayer;
     player->setMedia(QUrl::fromLocalFile("B:\\Users\\NATHZN\\Documents\\Ant_Game_Qt-master\\ressources_ant_game\\main_theme.mp3"));
     player->setVolume(100);
-    player->play();
+    player->play();*/
     this->model->addItem(new Item(new Point(100, 100), ":/item/ressources_ant_game/rock_1.png", 200, 200));
     this->model->addItem(new Item(new Point(500, 100), ":/item/ressources_ant_game/rock_2.png", 100, 100));
     this->model->addItem(new Item(new Point(400,300), ":/item/ressources_ant_game/Fourmilière.gif", 100, 100));
 
     Ant *fourmieTest = new Ant(new Point(300,300));
-    this->model->addUnit(fourmieTest);
+    this->model->addItem(fourmieTest);
     this->view->update(this->model->getDataItem());
-    this->view->update(this->model->getUnitItem());
 
 }
 
 void Game::run_game(){
     bool isComplete = false;
     while (!isComplete) {
-        for(int i = 0; i < this->model->getUnitItem().length(); i++)
+        for(int i = 0; i < this->model->getDataItem().length(); i++)
         {
-            int x = this->model->getUnitItem()[i].getPositions()->getX();
-            int y = this->model->getUnitItem()[i].getPositions()->getY();
+            int x = this->model->getDataItem()[i].getPositions()->getX();
+            int y = this->model->getDataItem()[i].getPositions()->getY();
             Point *pos = new Point(x,y);
             pos->setX(pos->getX() + 1);
-            this->model->getUnitItem()[i].setPositions(pos);
-            this->view->update(this->model->getUnitItem());
+            this->model->getDataItem()[i].setPositions(pos);
+            this->view->update(this->model->getDataItem());
             if(x >= 500){
                 isComplete = true;
             }
@@ -43,6 +42,11 @@ void Game::run_game(){
         this->view->repaint();
     }
 
+}
+
+GameModel * Game::getModel()
+{
+    return this->model;
 }
 
 

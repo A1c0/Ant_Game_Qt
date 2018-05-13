@@ -15,5 +15,4 @@
         <file>ressources_ant_game/ant_moving.gif</file>
         <file>ressources_ant_game/ant_static.gif</file>
     </qresource>
-    <qresource prefix="/music"/>
 </RCC>

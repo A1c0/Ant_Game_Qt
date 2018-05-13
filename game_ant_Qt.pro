@@ -53,6 +53,3 @@ FORMS += \
 RESOURCES += \
     images.qrc
 
-DISTFILES += \
-    ressources_ant_game/main_theme.mp3 \
-    ressources_ant_game/main_theme.mp3

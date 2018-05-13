@@ -23,7 +23,10 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QLCDNumber" name="harvesterNumber"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="harvesterButton">
           <property name="text">
            <string>Recolteur</string>
           </property>
@@ -40,7 +43,10 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QLCDNumber" name="soldierNumber"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="soldierButton">
           <property name="text">
            <string>Soldat</string>
           </property>
