@@ -19,7 +19,7 @@ void GameModel::setDataItem(QList<Item*> &value)
 
 void GameModel::addItem(Item *i)
 {
-        dataItem << *i;
+        dataItem << i;
 }
 
 

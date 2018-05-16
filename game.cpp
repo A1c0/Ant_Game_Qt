@@ -27,8 +27,8 @@ void Game::init_item()
 
     this->model->addItem(f2);
 
-    int x1 = this->model->getDataItem()[4].getPositions()->getX();
-    int y1 = this->model->getDataItem()[4].getPositions()->getY();
+    int x1 = this->model->getDataItem()[4]->getPositions()->getX();
+    int y1 = this->model->getDataItem()[4]->getPositions()->getY();
 
     qDebug() << "la valeur est de x est" << x1 << "et y" << y1;
 
@@ -44,9 +44,9 @@ void Game::run_game(){
 
                 //{
 
-                    int x = this->model->getDataItem()[4].getPositions()->getX();
+                    int x = this->model->getDataItem()[4]->getPositions()->getX();
 
-                    int y = this->model->getDataItem()[4].getPositions()->getY();
+                    int y = this->model->getDataItem()[4]->getPositions()->getY();
 
                     Point *pos = new Point(x,y);
                     pos->setX(pos->getX() + 1);
