@@ -7,6 +7,8 @@
 #include <QMediaPlayer>
 #include <QMessageBox>
 
+#include <QDebug>
+
 class GameView;
 class GameModel;
 
@@ -20,6 +22,7 @@ public:
     Game(GameModel *model, GameView *view);
     void init_item();
     void run_game();
+    //void change_pos(Item *i);
     GameModel * getModel();
 };
 

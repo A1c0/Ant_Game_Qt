@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/icones">
         <file>ressources_ant_game/icone_app.png</file>
-        <file>ressources_ant_game/icone_app_soldier.png</file>
     </qresource>
     <qresource prefix="/background">
         <file>ressources_ant_game/herbe.png</file>

@@ -1,6 +1,6 @@
 #include "item.h"
 
-ItemProp::ItemProp(Point * pos, QString imagePath, int xSize, int ySize)
+ItemProp::ItemProp(Point *pos, QString imagePath, int xSize, int ySize)
 {
     setPos(pos->getX(), pos->getY());
     // drew the rect

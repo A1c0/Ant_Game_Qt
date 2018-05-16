@@ -7,7 +7,7 @@
 class ItemProp: public QObject,public QGraphicsPixmapItem{
     Q_OBJECT
 public:
-    ItemProp(Point * pos, QString imagePath, int xSize, int ySize);
+    ItemProp(Point *pos, QString imagePath, int xSize, int ySize);
 };
 
 class Item
