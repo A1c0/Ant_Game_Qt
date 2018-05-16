@@ -9,7 +9,7 @@ GameView::GameView(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowIcon(QIcon(":/icones/ressources_ant_game/icone_app.png"));
     this->setWindowTitle(QString("Ant Game"));
-    scene = new QGraphicsScene();
+    scene = new QGraphicsScene(this);
     scene->setSceneRect(0,0,800,600); // make the scene 800x600 instead of infinity by infinity (default)
     ui->graphicsView->setBackgroundBrush(QBrush(QImage(":/background/ressources_ant_game/herbe.png")));
     ui->graphicsView->setScene(scene);
@@ -24,7 +24,7 @@ GameView::~GameView()
     delete ui;
 }
 
-void GameView::update(QList<Item> data)
+void GameView::update(QList<Item*> data)
 {
     scene->setSceneRect(0,0,800,600); // make the scene 800x600 instead of infinity by infinity (default)
     ui->graphicsView->setBackgroundBrush(QBrush(QImage(":/background/ressources_ant_game/herbe.png")));
@@ -33,10 +33,25 @@ void GameView::update(QList<Item> data)
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setFixedSize(800,600);
 
-    foreach( Item item, data)
-    {
-        ui->graphicsView->scene()->addItem(item.getGraphicData());
+
+
+    /*for(int i = 0; i < data.size(); i++){
+        qDebug() << "bonjour" ;
+        ui->graphicsView->scene()->addItem(data.at(i));
     }
+    */
+
+    ui->graphicsView->scene()->clear();
+
+    foreach(Item* item, data)
+    {
+        qDebug() << "bonjour" ;
+
+        //ui->graphicsView->scene()->update();
+        ui->graphicsView->scene()->addItem(item->getGraphicData());
+
+    }
+
 }
 
 void GameView::test()

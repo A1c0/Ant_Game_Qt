@@ -52,7 +52,7 @@
           </property>
           <property name="icon">
            <iconset resource="images.qrc">
-            <normaloff>:/icones/ressources_ant_game/icone_app_soldier.png</normaloff>:/icones/ressources_ant_game/icone_app_soldier.png</iconset>
+            <normaloff>:/icones/ressources_ant_game/icone_app.png</normaloff>:/icones/ressources_ant_game/icone_app.png</iconset>
           </property>
           <property name="iconSize">
            <size>
