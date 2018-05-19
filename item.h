@@ -15,6 +15,7 @@ class Item
 public:
     Item(Point *pos, QString imagePath, int xSize = 200, int ySize = 200);
     void setPositions(Point *pos);
+    void setPositionsUI(Point * pos, QString imagePath, int xSize, int ySize);
     Point * getPositions();
     ItemProp *getGraphicData() const;
 

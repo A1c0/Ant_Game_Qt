@@ -6,7 +6,7 @@ GameModel::GameModel()
 
 }
 
-QList<Item*> GameModel::getDataItem() const
+QList<Item *> GameModel::getDataItem() const
 {
     return dataItem;
 }

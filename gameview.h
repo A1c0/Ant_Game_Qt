@@ -24,7 +24,8 @@ public:
     void setControl(Game *control) {
         this->control = control;
     }
-    void update(QList<Item*> data);
+    //void update(QList<Item*> data);
+    void update_test(QList<Item*> data_test);
     void test();
 
 private slots:

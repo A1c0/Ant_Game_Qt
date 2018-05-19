@@ -28,6 +28,11 @@ void Item::setPositions(Point *pos){
     this->pos = pos;
 }
 
+void Item::setPositionsUI(Point * pos, QString imagePath, int xSize, int ySize){
+    this->pos = pos;
+    this->graphicData = new ItemProp(pos, imagePath, xSize, ySize);
+}
+
 Point * Item::getPositions(){
     return this->pos;
 }
