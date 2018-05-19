@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     GameModel m;
 
     Game(&m, &w);
-    w.show();
+    w.showFullScreen();
 
     //phase de test
 

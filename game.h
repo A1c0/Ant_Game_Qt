@@ -17,6 +17,8 @@ private:
 public:
     Game(GameModel *model, GameView *view);
     void init_item();
+    void run_item();
+    void createHarvester();
 
 };
 
