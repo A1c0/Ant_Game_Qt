@@ -24,8 +24,16 @@ public:
     void setControl(Game *control) {
         this->control = control;
     }
-    void update(QList<Item> data);
+    void update(QList<Item*> data);
     void test();
+    QGraphicsScene * getScene();
+
+private slots:
+    void on_harvesterButton_clicked();
+
+    void on_soldierButton_clicked();
+
+    void on_lcdNumber_overflow();
 
 private:
     Ui::GameView *ui;

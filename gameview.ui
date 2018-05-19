@@ -6,17 +6,65 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>734</width>
+    <height>515</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>GameView</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
-     <widget class="QGraphicsView" name="graphicsView"/>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QGraphicsView" name="graphicsView"/>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLCDNumber" name="harvesterNumber"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="harvesterButton">
+          <property name="text">
+           <string>Recolteur</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>:/icones/ressources_ant_game/icone_app.png</normaloff>:/icones/ressources_ant_game/icone_app.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>150</width>
+            <height>150</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLCDNumber" name="soldierNumber"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="soldierButton">
+          <property name="text">
+           <string>Soldat</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>:/icones/ressources_ant_game/icone_app.png</normaloff>:/icones/ressources_ant_game/icone_app.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>150</width>
+            <height>150</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -25,8 +73,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
-     <height>17</height>
+     <width>734</width>
+     <height>25</height>
     </rect>
    </property>
   </widget>

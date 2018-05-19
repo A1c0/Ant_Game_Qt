@@ -9,7 +9,7 @@ GameView::GameView(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowIcon(QIcon(":/icones/ressources_ant_game/icone_app.png"));
     this->setWindowTitle(QString("Ant Game"));
-    scene = new QGraphicsScene();
+    scene = new QGraphicsScene(this);
     scene->setSceneRect(0,0,800,600); // make the scene 800x600 instead of infinity by infinity (default)
     ui->graphicsView->setBackgroundBrush(QBrush(QImage(":/background/ressources_ant_game/herbe.png")));
     ui->graphicsView->setScene(scene);
@@ -24,30 +24,48 @@ GameView::~GameView()
     delete ui;
 }
 
-void GameView::update(QList<Item> data)
+void GameView::update(QList<Item*> data)
 {
-    scene->setSceneRect(0,0,800,600); // make the scene 800x600 instead of infinity by infinity (default)
-    ui->graphicsView->setBackgroundBrush(QBrush(QImage(":/background/ressources_ant_game/herbe.png")));
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->graphicsView->setFixedSize(800,600);
-
-    foreach( Item item, data)
+    foreach(Item* item, data)
     {
-        ui->graphicsView->scene()->addItem(item.getGraphicData());
+        Point * updatepos = new Point(0,0);
+        updatepos->setX(item->getPositions()->getX());
+        updatepos->setY(item->getPositions()->getY());
+        qDebug() << updatepos->getX();
+        qDebug() << updatepos->getY();
+        item->getGraphicData()->setPos(updatepos->getX(),updatepos->getX());
     }
 }
 
 void GameView::test()
 {
+    /*
     QGraphicsScene scene;
     QLabel *gif_anim = new QLabel();
-    QMovie *movie = new QMovie(":/item/ant/ressources_ant_game/ant_static.gif");
-    gif_anim->setMovie(movie);
-    movie->start();
-    ui->graphicsView->scene()->addWidget(gif_anim);
+    QMovie *essai = new QMovie("/item/ant/ressources_ant_game/ant_static.gif");
+    gif_anim->setMovie(essai);
+    essai->start();
+    ui->graphicsView->scene()->addWidget(gif_anim);*/
 }
 
 
 
+void GameView::on_harvesterButton_clicked()
+{
+    this->control->getModel()->addItem(new Ant(new Point(300,300)));
+    int nbr = 0;
+    for(int i = 0; i < this->control->getModel()->getDataItem().length(); i++)
+    {
+        nbr++;
+    }
+    this->ui->harvesterNumber->display(nbr);
+}
+
+void GameView::on_soldierButton_clicked()
+{
+
+}
+
+QGraphicsScene * GameView::getScene(){
+    return this->scene;
+}

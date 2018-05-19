@@ -7,6 +7,9 @@
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += multimedia
+QT += multimediawidgets
+QT += winextras
 
 TARGET = game_ant_Qt
 TEMPLATE = app
@@ -49,3 +52,4 @@ FORMS += \
 
 RESOURCES += \
     images.qrc
+
