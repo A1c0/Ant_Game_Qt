@@ -43,7 +43,7 @@ void GameView::update(QList<Item*> data)
 
     ui->graphicsView->scene()->clear();
 
-    foreach(Item* item, data)
+    foreach(Item *item, data)
     {
         qDebug() << "bonjour" ;
 

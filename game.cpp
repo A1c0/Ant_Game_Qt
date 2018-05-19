@@ -10,10 +10,11 @@ Game::Game(GameModel *model, GameView *view) :
 
 void Game::init_item()
 {
-   /* QMediaPlayer *player = new QMediaPlayer;
+    /*QMediaPlayer *player = new QMediaPlayer;
     player->setMedia(QUrl::fromLocalFile("B:\\Users\\NATHZN\\Documents\\Ant_Game_Qt-master\\ressources_ant_game\\main_theme.mp3"));
     player->setVolume(100);
     player->play();*/
+
     this->model->addItem(new Item(new Point(100, 100), ":/item/ressources_ant_game/rock_1.png", 200, 200));
     this->model->addItem(new Item(new Point(500, 100), ":/item/ressources_ant_game/rock_2.png", 100, 100));
     this->model->addItem(new Item(new Point(400,300), ":/item/ressources_ant_game/Fourmilière.gif", 100, 100));
@@ -31,6 +32,16 @@ void Game::init_item()
     int y1 = this->model->getDataItem()[4]->getPositions()->getY();
 
     qDebug() << "la valeur est de x est" << x1 << "et y" << y1;
+
+    /*qDeleteAll(this->model->getDataItem().begin(), this->model->getDataItem().end());
+    this->model->getDataItem().clear();
+
+    int x = this->model->getDataItem().length();
+    qDebug() << "Longueur:" << x;
+    int x2 = this->model->getDataItem()[4]->getPositions()->getX();
+    int y2 = this->model->getDataItem()[4]->getPositions()->getY();
+
+    qDebug() << "la valeur est de x est" << x2 << "et y" << y2;*/
 
     this->view->update(this->model->getDataItem());
 
