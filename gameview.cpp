@@ -37,11 +37,15 @@ void GameView::update(QList<Item*> data)
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setFixedSize(1600,900);
-    foreach( Item *item, data)
+    foreach(Item *item, data)
     {
-        ui->graphicsView->scene()->removeItem(item->getGraphicData());
-        ui->graphicsView->scene()->addItem(item->getGraphicData());
+        ui->graphicsView->scene()->update();
     }
+}
+
+void GameView::add_item(Item * item)
+{
+    this->scene->addItem(item->getGraphicData());
 }
 
 void GameView::test()
