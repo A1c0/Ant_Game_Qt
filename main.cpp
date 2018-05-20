@@ -9,9 +9,9 @@ int main(int argc, char *argv[])
     GameView w;
     GameModel m;
 
-    Game(&m, &w);
-    w.show();
-
+    Game *active = new Game(&m, &w);
+    w.showFullScreen();
+    active->run_item();
     //phase de test
 
 

@@ -1,9 +1,9 @@
 #include "unit.h"
 
-Unit::Unit(Point * pos, QString imagePath, int xSize, int ySize):
+Unit::Unit(QPointF * pos, QString imagePath, int xSize, int ySize):
     Item(pos, imagePath, xSize, ySize)
 {
-    QList<Point> *mouvements;
+    QList<QPointF> *mouvements;
     this->healthPoints = 0;
     this->moveSpeed = 100;
     this->attackSpeed = 100;
