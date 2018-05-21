@@ -3,17 +3,19 @@
 
 #include <QList>
 #include "item.h"
+#include "Unit.h"
+#include "Ant.h"
 
 
 class GameModel
 {
 private:
-    QList<Item> dataItem;
+    QList<Item*> dataItem;
 public:
     GameModel();
-    void setDataItem(const QList<Item> &value);
+    void setDataItem(const QList<Item*> &value);
     void addItem(Item *i);
-    QList<Item> getDataItem() const;
+    QList<Item*> getDataItem();
 };
 
 #endif // GAMEMODEL_H

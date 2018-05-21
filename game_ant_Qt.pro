@@ -32,7 +32,7 @@ SOURCES += \
     unit.cpp \
     ant.cpp \
     harvester.cpp \
-    point.cpp
+    path.cpp
 
 HEADERS += \
         gameview.h \
@@ -42,7 +42,7 @@ HEADERS += \
     unit.h \
     ant.h \
     harvester.h \
-    point.h
+    path.h
 
 FORMS += \
         gameview.ui
