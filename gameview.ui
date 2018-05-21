@@ -14,9 +14,74 @@
    <string>GameView</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QGraphicsView" name="graphicsView"/>
+     <widget class="QGraphicsView" name="graphicsView">
+      <property name="maximumSize">
+       <size>
+        <width>1920</width>
+        <height>1080</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLCDNumber" name="harvesterCount">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>250</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="harvesterCreate">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>250</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Harvester</string>
+        </property>
+        <property name="icon">
+         <iconset resource="images.qrc">
+          <normaloff>:/icones/ressources_ant_game/icone_app.png</normaloff>:/icones/ressources_ant_game/icone_app.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLCDNumber" name="soldierCount">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>250</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="soldierCreate">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>250</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Soldier</string>
+        </property>
+        <property name="icon">
+         <iconset resource="images.qrc">
+          <normaloff>:/icones/ressources_ant_game/icone_app.png</normaloff>:/icones/ressources_ant_game/icone_app.png</iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -26,9 +91,16 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>17</height>
+     <height>20</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuquit">
+    <property name="title">
+     <string>menu</string>
+    </property>
+    <addaction name="actionQuit"/>
+   </widget>
+   <addaction name="menuquit"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -39,8 +111,15 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
  <connections/>
 </ui>

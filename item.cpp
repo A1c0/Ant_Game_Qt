@@ -1,8 +1,9 @@
 #include "item.h"
+#include <QPointF>
 
-ItemProp::ItemProp(Point * pos, QString imagePath, int xSize, int ySize)
+ItemProp::ItemProp(QPointF * pos, QString imagePath, int xSize, int ySize)
 {
-    setPos(pos->getX(), pos->getY());
+    setPos(pos->rx(), pos->ry());
     // drew the rect
     QPixmap img(imagePath);
 
@@ -13,13 +14,25 @@ ItemProp::ItemProp(Point * pos, QString imagePath, int xSize, int ySize)
 }
 
 
-Item::Item(Point * pos, QString imagePath, int xSize, int ySize)
+Item::Item(QPointF * pos, QString imagePath, int xSize, int ySize)
 {
+    this->canMove = false;
     this->pos = pos;
     this->graphicData = new ItemProp(pos, imagePath, xSize, ySize);
 }
 
-ItemProp *Item::getGraphicData() const
+ItemProp * Item::getGraphicData()
 {
     return graphicData;
 }
+
+bool Item::getCanMove(){
+    return this->canMove;
+}
+
+QPointF * Item::getPos(){
+    return this->pos;
+}
+
+void Item::move(){}
+void Item::addMovePoint(QPointF* nextPoint){}

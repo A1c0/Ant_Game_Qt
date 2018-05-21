@@ -11,11 +11,12 @@
 #define UNIT_H
 #include "item.h"
 #include <QList>
+#include "path.h"
 
 class Unit : public Item
 {
 public:
-    Unit(Point *pos, QString imagePath, int xSize = 200, int ySize = 200);
+    Unit(QPointF *pos, QString imagePath, int xSize = 200, int ySize = 200);
     ~Unit();
     void move();
     void attack();
@@ -37,8 +38,9 @@ public:
     void setHealthPoints(int newHealthPoints){
         this->healthPoints = newHealthPoints;
     }
-private:
-    QList<Point> *mouvements;
+    void addMovePoint(QPointF *nextPoint);
+protected:
+    QList<QPointF*> *mouvements;
     int healthPoints; //Defines the health of the unit.
     float moveSpeed; //Defines the movement speed of the unit.
     float attackSpeed; //Defines the attack speed of the unit per second. For example, an attackSpeed value of 1 is 1 hit per second.

@@ -24,30 +24,48 @@ GameView::~GameView()
     delete ui;
 }
 
-void GameView::update(QList<Item> data)
+void GameView::update(QList<Item*> data)
 {
-    scene->setSceneRect(0,0,800,600); // make the scene 800x600 instead of infinity by infinity (default)
+    /*
+    foreach(Item *item, data)
+    {
+        ui->graphicsView->scene()->removeItem(item->getGraphicData());
+    }*/
+    scene->setSceneRect(0,0,1600,900); // make the scene 800x600 instead of infinity by infinity (default)
     ui->graphicsView->setBackgroundBrush(QBrush(QImage(":/background/ressources_ant_game/herbe.png")));
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->graphicsView->setFixedSize(800,600);
-
-    foreach( Item item, data)
+    ui->graphicsView->setFixedSize(1600,900);
+    foreach(Item *item, data)
     {
-        ui->graphicsView->scene()->addItem(item.getGraphicData());
+        ui->graphicsView->scene()->update();
     }
+}
+
+void GameView::add_item(Item * item)
+{
+    this->scene->addItem(item->getGraphicData());
 }
 
 void GameView::test()
 {
+    /*
     QGraphicsScene scene;
     QLabel *gif_anim = new QLabel();
     QMovie *movie = new QMovie(":/item/ant/ressources_ant_game/ant_static.gif");
     gif_anim->setMovie(movie);
     movie->start();
-    ui->graphicsView->scene()->addWidget(gif_anim);
+    ui->graphicsView->scene()->addWidget(gif_anim);*/
 }
 
 
 
+
+void GameView::on_harvesterCreate_clicked()
+{
+    int current = this->ui->harvesterCount->intValue();
+    this->control->createHarvester();
+    current++;
+    this->ui->harvesterCount->display(current);
+}
