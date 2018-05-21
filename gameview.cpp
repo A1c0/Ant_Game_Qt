@@ -23,46 +23,17 @@ GameView::GameView(QWidget *parent) :
 
 void GameView::update_test(QList<Item *> data_test)
 {
-    //scene->clear();
+    //ui->graphicsView->scene()->clear();
 
     for(int i = 0; i < data_test.size(); i++)
     {
+        /*qDebug() << "**********";
         qDebug() << data_test[i]->getPositions()->getX();
-        qDebug() << data_test[i]->getPositions()->getY();
-        scene->addItem(data_test[i]->getGraphicData());
-        ui->graphicsView->scene()->addItem(data_test.at(i)->getGraphicData());
+        qDebug() << data_test[i]->getPositions()->getY();*/
+        ui->graphicsView->scene()->addItem(data_test[i]->getGraphicData());
+        //ui->graphicsView->scene()->removeItem(data_run[i]->getGraphicData());
     }
 }
-
-/*void GameView::update(QList<Item*> data)
-{
-    scene->setSceneRect(0,0,800,600); // make the scene 800x600 instead of infinity by infinity (default)
-    ui->graphicsView->setBackgroundBrush(QBrush(QImage(":/background/ressources_ant_game/herbe.png")));
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->graphicsView->setFixedSize(800,600);
-
-    scene->clear();
-
-    for(int i = 0; i < data.size(); i++){
-        qDebug() << "bonjour" ;
-        ui->graphicsView->scene()->addItem(data.at(i)->getGraphicData());
-    }
-
-
-    scene->clear();
-
-    foreach(Item* item, data)
-    {
-        qDebug() << "Bonjour" ;
-
-        //ui->graphicsView->scene()->update();
-        ui->graphicsView.scene()->addItem(item->getGraphicData());
-
-    }
-
-}*/
 
 void GameView::test()
 {
