@@ -10,12 +10,12 @@ GameView::GameView(QWidget *parent) :
     this->setWindowIcon(QIcon(":/icones/ressources_ant_game/icone_app.png"));
     this->setWindowTitle(QString("Ant Game"));
     scene = new QGraphicsScene();
-    scene->setSceneRect(0,0,800,600); // make the scene 800x600 instead of infinity by infinity (default)
+    scene->setSceneRect(0,0,1600,900); // make the scene 800x600 instead of infinity by infinity (default)
     ui->graphicsView->setBackgroundBrush(QBrush(QImage(":/background/ressources_ant_game/herbe.png")));
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->graphicsView->setFixedSize(800,600);
+    ui->graphicsView->setFixedSize(1600,900);
 
 }
 

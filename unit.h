@@ -38,6 +38,8 @@ public:
         this->healthPoints = newHealthPoints;
     }
     void addMovePoint(QPointF *nextPoint);
+    QList<QPointF *> * getMovePoints();
+    void advance();
 protected:
     QList<QPointF*> *mouvements;
     int healthPoints; //Defines the health of the unit.

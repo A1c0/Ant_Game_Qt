@@ -19,6 +19,8 @@ public:
     QPointF * getPos();
     virtual void move();
     virtual void addMovePoint(QPointF * nextPoint);
+    virtual QList<QPointF*> * getMovePoints();
+    virtual void advance();
 
 protected:
     QPointF *pos;

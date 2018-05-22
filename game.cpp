@@ -55,26 +55,21 @@ void Game::createHarvester()
 
 void Game::mainProcess()
 {
-
     foreach (Item* item, this->model->getDataItem()) {
         if(item->getCanMove())
         {
-            item->addMovePoint(new QPointF(item->getPos()->rx() + 10,item->getPos()->ry() + 10));
-            item->addMovePoint(new QPointF(100,50));
-            item->addMovePoint(new QPointF(150,50));
-            item->addMovePoint(new QPointF(200,50));
-            item->addMovePoint(new QPointF(250,50));
-            item->addMovePoint(new QPointF(300,50));
-            item->addMovePoint(new QPointF(250,50));
-            item->addMovePoint(new QPointF(200,50));
-            item->addMovePoint(new QPointF(150,50));
-            item->addMovePoint(new QPointF(100,50));
-            item->addMovePoint(new QPointF(50,50));
-            item->move();
+            if(item->getMovePoints()->empty())
+                item->addMovePoint(new QPointF(100,100));
+            if(item->getMovePoints()->length() <= 1)
+                item->addMovePoint(new QPointF(500,100));
+            if(item->getMovePoints()->length() <= 2)
+                item->addMovePoint(new QPointF(500,500));
+            if(item->getMovePoints()->length() <= 3)
+                item->addMovePoint(new QPointF(100,500));
+            }
+            item->advance();
         }
-    }
 }
-
 void Game::update(){
     this->view->update(this->model->getDataItem());
 }
