@@ -24,8 +24,12 @@ public:
     void setControl(Game *control) {
         this->control = control;
     }
-    void update(QList<Item> data);
+    void update(QList<Item*> data);
     void test();
+    void add_item(Item * item);
+
+private slots:
+    void on_harvesterCreate_clicked();
 
 private:
     Ui::GameView *ui;

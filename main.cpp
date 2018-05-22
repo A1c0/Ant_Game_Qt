@@ -2,6 +2,7 @@
 #include "gamemodel.h"
 #include "game.h"
 #include <QApplication>
+#include <QTimer>
 
 int main(int argc, char *argv[])
 {
@@ -9,11 +10,7 @@ int main(int argc, char *argv[])
     GameView w;
     GameModel m;
 
-    Game(&m, &w);
-    w.show();
-
-    //phase de test
-
-
+    Game *active = new Game(&m, &w);
+    w.showFullScreen();
     return a.exec();
 }
