@@ -50,6 +50,5 @@ FORMS += \
         gameview.ui
 
 RESOURCES += \
-    images.qrc \
-    bgm.mp3
+    images.qrc
 
