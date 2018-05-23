@@ -1,6 +1,8 @@
 #include "gameview.h"
 #include "ui_gameview.h"
 #include <QLabel>
+#include <QDebug>
+#include <QGraphicsSceneMouseEvent>
 
 GameView::GameView(QWidget *parent) :
     QMainWindow(parent),
@@ -59,13 +61,23 @@ void GameView::test()
     ui->graphicsView->scene()->addWidget(gif_anim);*/
 }
 
-
-
-
 void GameView::on_harvesterCreate_clicked()
 {
     int current = this->ui->harvesterCount->intValue();
     this->control->createHarvester();
     current++;
     this->ui->harvesterCount->display(current);
+}
+
+void GameView::mousePressEvent(QMouseEvent *event){
+    int posX = event->pos().x();
+    int posY = event->pos().y();
+    qDebug() << this->ui->graphicsView->scene()->height();
+    qDebug() << this->ui->graphicsView->scene()->width();
+    QPointF * point = new QPointF(this->ui->graphicsView->mapFromGlobal(event->pos()));
+    qDebug() << "x/y pos mapToGlobal : " << point;
+
+    if(point->rx() >= 0 && point->rx() <= this->ui->graphicsView->scene()->width() && point->ry() >= 0 && point->ry() <= this->ui->graphicsView->scene()->height() ) {
+        emit newPoint(point);
+    }
 }

@@ -23,6 +23,7 @@ public:
     void createHarvester();
 
 public slots:
+    void addPathPoint(QPointF *p);
     void update();
     void mainProcess();
 };

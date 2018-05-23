@@ -33,12 +33,12 @@ void Unit::advance()
     QPointF * nextPos = new QPointF(this->mouvements->first()->rx(),this->mouvements->first()->ry());
     qreal newX = std::abs((nextPos->rx() - currentPos->rx()))*this->getMoveSpeed();
     qreal newY = std::abs((nextPos->ry() - currentPos->ry()))*this->getMoveSpeed();
-    qDebug() << "currentX = " << currentPos->rx();
+    /*qDebug() << "currentX = " << currentPos->rx();
     qDebug() << "currentY = " << currentPos->ry();
     qDebug() << "nextX = " << nextPos->rx();
     qDebug() << "nextY = " << nextPos->ry();
     qDebug() << "newX = " << newX;
-    qDebug() << "newY = " << newY;
+    qDebug() << "newY = " << newY;*/
     if(newX > 800)
     {
         newX = 800;

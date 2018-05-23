@@ -17,6 +17,7 @@ Game::Game(GameModel *model, GameView *view) :
     init_item();
     timer1->start();
     timer2->start();
+    this->connect(this->view, SIGNAL(newPoint(QPointF*)), this, SLOT(addPathPoint(QPointF*)));
 }
 
 void Game::init_item()
@@ -72,4 +73,8 @@ void Game::mainProcess()
 }
 void Game::update(){
     this->view->update(this->model->getDataItem());
+}
+
+void Game::addPathPoint(QPointF * p) {
+    model->addPathPoint(p);
 }

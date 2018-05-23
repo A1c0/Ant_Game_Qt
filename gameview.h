@@ -27,9 +27,13 @@ public:
     void update(QList<Item*> data);
     void test();
     void add_item(Item * item);
+    void mousePressEvent(QMouseEvent  *event);
 
 private slots:
     void on_harvesterCreate_clicked();
+
+signals:
+    void newPoint(QPointF *p);
 
 private:
     Ui::GameView *ui;

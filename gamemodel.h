@@ -11,10 +11,12 @@ class GameModel
 {
 private:
     QList<Item*> dataItem;
+    QList<QPointF*> pathPointList;
 public:
     GameModel();
     void setDataItem(const QList<Item*> &value);
     void addItem(Item *i);
+    void addPathPoint(QPointF * p);
     QList<Item*> getDataItem();
 };
 

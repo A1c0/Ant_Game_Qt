@@ -20,3 +20,7 @@ void GameModel::addItem(Item *i)
     dataItem << i;
 }
 
+void GameModel::addPathPoint(QPointF *p)
+{
+    pathPointList << p;
+}
