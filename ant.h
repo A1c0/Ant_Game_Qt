@@ -10,11 +10,12 @@
 #ifndef ANT_H
 #define ANT_H
 #include "unit.h"
+#include "constant.h"
 
 class Ant : public Unit
 {
 public:
-    Ant(QPointF *pos);
+    Ant(QPointF *pos, QString imagePath);
     ~Ant();
 private:
     //bool const owner = 0; //owner represents the controller of the unit (either 0 for player or 1 for the CPU) --> Innutile car Ant ne sera que allié

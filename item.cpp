@@ -33,8 +33,3 @@ bool Item::getCanMove(){
 QPointF * Item::getPos(){
     return this->pos;
 }
-
-void Item::move(){}
-void Item::addMovePoint(QPointF* nextPoint){}
-QList<QPointF*> * Item::getMovePoints(){return nullptr;}
-float Item::getMoveSpeed(){}

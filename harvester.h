@@ -14,34 +14,11 @@
 class Harvester : public Ant
 {
 public:
-    harvester(){
-        this.healthPoints = 50;
-        this.moveSpeed = 1;
-        this.attackSpeed = 0.5;
-        this.cost = 5;
-        this.harvestQuantity = 5;
-        this.harvestSpeed = 1;
-        this.isFull = 0;
-    }
-    ~harvester();
-    void harvest() const;
-    //getters :
-    float getHarvestSpeed() const{
-        return this.harvestSpeed;
-    }
-    int getHarvestQuantity() const{
-        return this.harvestQuantity;
-    }
-    bool getIsFull() const{
-        return this.isFull;
-    }
-    //Seters
-    void setIsFull(bool parameter){
-        this.isFull = parameter;
-    }
+    Harvester(QPointF * pos);
+    ~Harvester();
+    void harvest();
+    void loopPoints();
 private:
-    float const harvestSpeed;
-    int const harvestQuantity;
-    bool isFull;
+
 };
 #endif // HARVESTER_H

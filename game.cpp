@@ -4,7 +4,7 @@
 #include <QTimer>
 #include <QtMath>
 #include <math.h>
-
+#include "harvester.h"
 Game::Game(GameModel *model, GameView *view) :
     view(view)
 {
@@ -25,8 +25,15 @@ void Game::init_item()
 {
     this->model->addItem(new Item(new QPointF(100, 100), ":/item/ressources_ant_game/rock_1.png", 200, 200));
     this->model->addItem(new Item(new QPointF(500, 100), ":/item/ressources_ant_game/rock_2.png", 100, 100));
-    this->model->addItem(new Item(new QPointF(300,400), ":/item/ressources_ant_game/Fourmilière.gif", 100, 100));
-    this->model->addUnit((new Ant(new QPointF(600,600))));
+    this->model->addItem(new Item(this->model->getNestPos(), ":/item/ressources_ant_game/Fourmilière.gif", 100, 100));
+    this->model->addItem(new Item(this->model->getfoodPos(), ":/item/ressources_ant_game/sugar.png", 100, 100));
+    this->model->addItem(new Item(new QPointF(400,800), ":/item/ressources_ant_game/Feuille_1.gif", 100, 100));
+    this->model->addItem(new Item(new QPointF(1500,300), ":/item/ressources_ant_game/Feuille_2.gif", 100, 100));
+    this->model->addItem(new Item(new QPointF(1300,100), ":/item/ressources_ant_game/Feuille_2.gif", 100, 100));
+    this->model->addItem(new Item(new QPointF(950,230), ":/item/ressources_ant_game/Feuille_1.gif", 100, 100));
+    this->model->addItem(new Item(new QPointF(360,200), ":/item/ressources_ant_game/Feuille_2.gif", 100, 100));
+    this->model->addUnit((new Harvester(new QPointF(600,600))));
+    this->view->foodDisplay(this->model->getFoodSupply());
     this->view->update(this->model->getDataItem());
     this->view->update(this->model->getDataUnit());
     foreach (Item * item, this->model->getDataItem())
@@ -47,10 +54,17 @@ void Game::run_item()
 
 void Game::createHarvester()
 {
-    QPointF * locate = new QPointF(600,600);
-    this->model->addUnit(new Ant(locate));
-    this->view->add_item(this->model->getDataUnit().last());
-    this->view->update(this->model->getDataUnit());
+    if(this->model->getFoodSupply() >= 50)
+    {
+        this->model->addFood(-50);
+        this->model->addUnit(new Harvester(this->model->getNestPos()));
+        this->view->add_item(this->model->getDataUnit().last());
+        this->view->update(this->model->getDataUnit());
+    }
+    else
+    {
+
+    }
 }
 
 
@@ -59,9 +73,8 @@ void Game::mainProcess()
     foreach (Unit* unit, this->model->getDataUnit()) {
         if(unit->getMovePoints()->size() != 0)
             this->advance(unit);
-
-
     }
+    this->view->foodDisplay(this->model->getFoodSupply());
 }
 void Game::update(){
     this->view->update(this->model->getDataUnit());

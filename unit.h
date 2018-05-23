@@ -17,7 +17,6 @@ class Unit : public Item
 public:
     Unit(QPointF *pos, QString imagePath, int xSize = 200, int ySize = 200);
     ~Unit();
-    void move();
     void attack();
     void die();
     //getters :
@@ -37,11 +36,13 @@ public:
     }
     void addMovePoint(QPointF *nextPoint);
     QList<QPointF *> * getMovePoints();
+    virtual void harvest();
 protected:
     QList<QPointF*> *mouvements;
     int healthPoints; //Defines the health of the unit.
     float moveSpeed; //Defines the movement speed of the unit.
     float attackSpeed; //Defines the attack speed of the unit per second. For example, an attackSpeed value of 1 is 1 hit per second.
     int attackValue; //Defines the attack value of the unit (total DPS is calculated using attackSpeed * attack)
+    bool canHarvest;
 };
 #endif // UNIT_H

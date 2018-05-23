@@ -4,7 +4,7 @@
 Unit::Unit(QPointF * pos, QString imagePath, int xSize, int ySize):
     Item(pos, imagePath, xSize, ySize)
 {
-    this->mouvements = new QList<QPointF*>();
+    this->mouvements = new QList<QPointF*>();/*
     this->mouvements->append(new QPointF(200,200));
     this->mouvements->append(new QPointF(600,600));
     this->mouvements->append(new QPointF(600,200));
@@ -20,7 +20,7 @@ Unit::Unit(QPointF * pos, QString imagePath, int xSize, int ySize):
     this->mouvements->append(new QPointF(200,1000));
     this->mouvements->append(new QPointF(600,600));
     this->mouvements->append(new QPointF(200,600));
-    this->mouvements->append(new QPointF(600,600));
+    this->mouvements->append(new QPointF(600,600));*/
     this->canMove = true;
     this->healthPoints = 0;
     this->moveSpeed = 15;
@@ -28,8 +28,8 @@ Unit::Unit(QPointF * pos, QString imagePath, int xSize, int ySize):
     this->attackValue = 100;
 }
 
-void Unit::move(){
-}
+Unit::~Unit(){}
+
 
 void Unit::addMovePoint(QPointF* nextPoint)
 {
@@ -44,3 +44,5 @@ QList<QPointF*> *Unit::getMovePoints()
 float Unit::getMoveSpeed() const {
     return this->moveSpeed;
 }
+
+void Unit::harvest(){}

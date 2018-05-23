@@ -31,6 +31,7 @@ public:
     void add_item(Item * item);
     int getSceneHeight();
     int getSceneWidth();
+    void foodDisplay(int nbr);
 
 private slots:
     void on_harvesterCreate_clicked();

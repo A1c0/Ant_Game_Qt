@@ -9,6 +9,9 @@
         <file>ressources_ant_game/rock_1.png</file>
         <file>ressources_ant_game/rock_2.png</file>
         <file>ressources_ant_game/Fourmilière.gif</file>
+        <file>ressources_ant_game/sugar.png</file>
+        <file>ressources_ant_game/Feuille_2.gif</file>
+        <file>ressources_ant_game/Feuille_1.gif</file>
     </qresource>
     <qresource prefix="/item/ant">
         <file>ressources_ant_game/ant_moving.gif</file>

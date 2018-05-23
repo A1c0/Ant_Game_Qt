@@ -40,7 +40,8 @@ HEADERS += \
     item.h \
     unit.h \
     ant.h \
-    harvester.h
+    harvester.h \
+    constant.h
 
 FORMS += \
         gameview.ui

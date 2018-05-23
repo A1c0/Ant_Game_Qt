@@ -17,10 +17,6 @@ public:
     ItemProp *getGraphicData();
     bool getCanMove();
     QPointF * getPos();
-    virtual void move();
-    virtual void addMovePoint(QPointF * nextPoint);
-    virtual QList<QPointF*> * getMovePoints();
-    float getMoveSpeed();
 
 protected:
     QPointF *pos;

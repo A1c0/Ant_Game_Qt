@@ -4,6 +4,9 @@ GameModel::GameModel()
 {
     dataItem = *(new QList<Item*>());
     dataUnit = *(new QList<Unit*>());
+    foodSupplyPos = new QPointF(FS_X,FS_Y);
+    nestPos = new QPointF(NP_X,NP_Y);
+    foodSupply = 500;
 }
 
 QList<Item *> GameModel::getDataItem()
@@ -31,3 +34,18 @@ void GameModel::addUnit(Unit *i)
     dataUnit << i;
 }
 
+int GameModel::getFoodSupply(){
+    return this->foodSupply;
+}
+
+void GameModel::addFood(int someFood){
+  this->foodSupply += someFood;
+}
+
+QPointF * GameModel::getfoodPos(){
+    return this->foodSupplyPos;
+}
+
+QPointF * GameModel::getNestPos(){
+    return this->nestPos;
+}

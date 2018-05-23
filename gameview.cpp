@@ -103,3 +103,8 @@ int GameView::getSceneWidth()
 {
     return this->scene->width();
 }
+
+void GameView::foodDisplay(int nbr)
+{
+    this->ui->foodNumber->display(nbr);
+}
