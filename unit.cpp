@@ -22,7 +22,8 @@ Unit::Unit(QPointF * pos, QString imagePath, int xSize, int ySize):
     this->mouvements->append(new QPointF(200,600));
     this->mouvements->append(new QPointF(600,600));*/
     this->canMove = true;
-    this->healthPoints = 0;
+    this->healthPoints = 10;
+    this->canHarvest = false;
     this->moveSpeed = 15;
     this->attackSpeed = 100;
     this->attackValue = 100;
@@ -46,3 +47,24 @@ float Unit::getMoveSpeed() const {
 }
 
 void Unit::harvest(){}
+
+void Unit::setCanHarvest(bool condition)
+{
+    this->canHarvest = false;
+}
+
+bool Unit::getCanHarvest()
+{
+    return this->canHarvest;
+}
+
+bool Unit::getBringBack()
+{
+    return this->bringBack;
+}
+void Unit::setBringBack(bool condition){}
+
+bool Unit::getIsHarvester()
+{
+    return false;
+}

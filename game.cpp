@@ -32,7 +32,7 @@ void Game::init_item()
     this->model->addItem(new Item(new QPointF(1300,100), ":/item/ressources_ant_game/Feuille_2.gif", 100, 100));
     this->model->addItem(new Item(new QPointF(950,230), ":/item/ressources_ant_game/Feuille_1.gif", 100, 100));
     this->model->addItem(new Item(new QPointF(360,200), ":/item/ressources_ant_game/Feuille_2.gif", 100, 100));
-    this->model->addUnit((new Harvester(new QPointF(600,600))));
+    this->model->addUnit((new Harvester(this->model->getNestPos())));
     this->view->foodDisplay(this->model->getFoodSupply());
     this->view->update(this->model->getDataItem());
     this->view->update(this->model->getDataUnit());
@@ -72,7 +72,17 @@ void Game::mainProcess()
 {
     foreach (Unit* unit, this->model->getDataUnit()) {
         if(unit->getMovePoints()->size() != 0)
-            this->advance(unit);
+        {
+            if(unit->getCanHarvest() == true)
+            {
+                unit->harvest();
+                qDebug() << "general kenobi";
+            }
+            else
+            {
+               this->advance(unit);
+            }
+        }
     }
     this->view->foodDisplay(this->model->getFoodSupply());
 }
@@ -84,72 +94,83 @@ void Game::update(){
 void Game::advance(Unit * unit)
 {
     QPointF * currentPos = new QPointF(unit->getGraphicData()->pos().rx(), unit->getGraphicData()->pos().ry());
-    if(unit->getMovePoints()->size() != 0)
+    if(unit->getCanHarvest() == false)
     {
-        QPointF * nextPos = new QPointF(unit->getMovePoints()->first()->rx(),unit->getMovePoints()->first()->ry());
-        qreal newX = (nextPos->rx() - currentPos->rx());
-        qreal newY = (nextPos->ry() - currentPos->ry());
-        if(qFabs(newX) > unit->getMoveSpeed()  && newX > 0)
+        if(unit->getMovePoints()->size() != 0)
         {
-            newX = unit->getMoveSpeed();
-        }
-        if(qFabs(newX) > unit->getMoveSpeed() && newX < 0)
-        {
-            newX = - unit->getMoveSpeed();
-        }
-        if(qFabs(newY) > unit->getMoveSpeed() && newY > 0)
-        {
-            newY = unit->getMoveSpeed();
-        }
-        if(qFabs(newY) > unit->getMoveSpeed() && newY < 0)
-        {
-            newY = - unit->getMoveSpeed();
-        }
+            QPointF * nextPos = new QPointF(unit->getMovePoints()->first()->rx(),unit->getMovePoints()->first()->ry());
+            qreal newX = (nextPos->rx() - currentPos->rx());
+            qreal newY = (nextPos->ry() - currentPos->ry());
+            if(qFabs(newX) > unit->getMoveSpeed()  && newX > 0)
+            {
+                newX = unit->getMoveSpeed();
+            }
+            if(qFabs(newX) > unit->getMoveSpeed() && newX < 0)
+            {
+                newX = - unit->getMoveSpeed();
+            }
+            if(qFabs(newY) > unit->getMoveSpeed() && newY > 0)
+            {
+                newY = unit->getMoveSpeed();
+            }
+            if(qFabs(newY) > unit->getMoveSpeed() && newY < 0)
+            {
+                newY = - unit->getMoveSpeed();
+            }
 
-        if(newX + currentPos->rx() > (this->view->getSceneWidth() - 100))
-        {
-            newX = 0;
-            unit->getMovePoints()->removeFirst();
-        }
-        if(newY + currentPos->ry() > (this->view->getSceneHeight()- 100))
-        {
-            newY = 0;
-            unit->getMovePoints()->removeFirst();
-        }
-        if(newX + currentPos->rx() < 0)
-        {
-            newX = 0;
-            unit->getMovePoints()->removeFirst();
-        }
-        if(newY + currentPos->ry() < 0)
-        {
-            newY = 0;
-            unit->getMovePoints()->removeFirst();
-        }
-        qreal rotationFactor = qAcos(( 10 * newY ) / ( qSqrt( 10 * 10 ) * qSqrt( ( newX * newX ) + ( newY * newY ))));
-        rotationFactor *= 180;
-        rotationFactor /= M_PI;
-        if(newX > 0)
-        {
-            rotationFactor += 180;
-            if(newY > 0)
-                rotationFactor += 90;
-            else if(newY < 0)
-                rotationFactor -= 90;
-        }
-        if(qFabs(currentPos->rx() - nextPos->rx()) < unit->getMoveSpeed() && qFabs(currentPos->ry() - nextPos->ry()) < unit->getMoveSpeed())
-        {
-            unit->getGraphicData()->setPos(nextPos->rx(), nextPos->ry());
-            if(rotationFactor == rotationFactor)
-                unit->getGraphicData()->setRotation(rotationFactor);
-            unit->getMovePoints()->removeFirst();
-        }
-        else
-        {
-            unit->getGraphicData()->setPos(newX + currentPos->rx(), newY + currentPos->ry());
-            if(rotationFactor == rotationFactor)
-                unit->getGraphicData()->setRotation(rotationFactor);
+            if(newX + currentPos->rx() > (this->view->getSceneWidth() - 100))
+            {
+                newX = 0;
+                unit->getMovePoints()->removeFirst();
+            }
+            if(newY + currentPos->ry() > (this->view->getSceneHeight()- 100))
+            {
+                newY = 0;
+                unit->getMovePoints()->removeFirst();
+            }
+            if(newX + currentPos->rx() < 0)
+            {
+                newX = 0;
+                unit->getMovePoints()->removeFirst();
+            }
+            if(newY + currentPos->ry() < 0)
+            {
+                newY = 0;
+                unit->getMovePoints()->removeFirst();
+            }
+            qreal rotationFactor = qAcos(( 10 * newY ) / ( qSqrt( 10 * 10 ) * qSqrt( ( newX * newX ) + ( newY * newY ))));
+            rotationFactor *= 180;
+            rotationFactor /= M_PI;
+            if(newX > 0)
+            {
+                rotationFactor += 180;
+                if(newY > 0)
+                    rotationFactor += 90;
+                else if(newY < 0)
+                    rotationFactor -= 90;
+            }
+            if(qFabs(currentPos->rx() - nextPos->rx()) < unit->getMoveSpeed() && qFabs(currentPos->ry() - nextPos->ry()) < unit->getMoveSpeed())
+            {
+                unit->getGraphicData()->setPos(nextPos->rx(), nextPos->ry());
+                if(rotationFactor == rotationFactor)
+                    unit->getGraphicData()->setRotation(rotationFactor);
+                unit->getMovePoints()->removeFirst();
+            }
+            else
+            {
+                unit->getGraphicData()->setPos(newX + currentPos->rx(), newY + currentPos->ry());
+                if(rotationFactor == rotationFactor)
+                    unit->getGraphicData()->setRotation(rotationFactor);
+            }
         }
     }
-
+    if((unit->getGraphicData()->pos().rx() == FS_X && unit->getGraphicData()->pos().ry() == FS_Y) && unit->getIsHarvester() == true )
+    {
+        unit->setCanHarvest(true);
+    }
+    if( (unit->getGraphicData()->pos().rx() == NP_X && unit->getGraphicData()->pos().ry() == NP_Y )&& unit->getIsHarvester() == true && unit->getBringBack() == true )
+    {
+        this->model->addFood(50);
+        unit->setBringBack(false);
+    }
   }

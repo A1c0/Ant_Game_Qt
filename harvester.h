@@ -18,7 +18,11 @@ public:
     ~Harvester();
     void harvest();
     void loopPoints();
+    void setCanHarvest(bool condition);
+    bool getBringBack();
+    void setBringBack(bool condition);
+    bool getIsHarvester();
 private:
-
+    int harvestTime;
 };
 #endif // HARVESTER_H

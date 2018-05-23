@@ -37,6 +37,11 @@ public:
     void addMovePoint(QPointF *nextPoint);
     QList<QPointF *> * getMovePoints();
     virtual void harvest();
+    virtual void setCanHarvest(bool condition);
+    bool getCanHarvest();
+    virtual bool getBringBack();
+    virtual void setBringBack(bool condition);
+    virtual bool getIsHarvester();
 protected:
     QList<QPointF*> *mouvements;
     int healthPoints; //Defines the health of the unit.
@@ -44,5 +49,6 @@ protected:
     float attackSpeed; //Defines the attack speed of the unit per second. For example, an attackSpeed value of 1 is 1 hit per second.
     int attackValue; //Defines the attack value of the unit (total DPS is calculated using attackSpeed * attack)
     bool canHarvest;
+    bool bringBack;
 };
 #endif // UNIT_H
