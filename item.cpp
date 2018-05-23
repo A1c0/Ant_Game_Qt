@@ -37,4 +37,4 @@ QPointF * Item::getPos(){
 void Item::move(){}
 void Item::addMovePoint(QPointF* nextPoint){}
 QList<QPointF*> * Item::getMovePoints(){return nullptr;}
-void Item::advance(){}
+float Item::getMoveSpeed(){}

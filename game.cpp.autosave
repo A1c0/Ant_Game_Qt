@@ -14,7 +14,7 @@ Game::Game(GameModel *model, GameView *view) :
     this->model = model;
     view->setControl(this);
     timer1->setInterval(15);
-    timer2->setInterval(5);
+    timer2->setInterval(15);
     init_item();
     timer1->start();
     timer2->start();

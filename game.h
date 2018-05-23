@@ -25,6 +25,7 @@ public:
 public slots:
     void update();
     void mainProcess();
+    void advance(Unit *item);
 };
 
 #endif // GAME_H

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "game.h"
 #include "item.h"
+#include "unit.h"
 #include <QList>
 #include <QGraphicsScene>
 
@@ -25,6 +26,7 @@ public:
         this->control = control;
     }
     void update(QList<Item*> data);
+    void update(QList<Unit*> data);
     void test();
     void add_item(Item * item);
 

@@ -24,9 +24,7 @@ public:
     int getHealthPoints() const {
         return this->healthPoints;
     }
-    float getMoveSpeed() const {
-        return this->moveSpeed;
-    }
+    float getMoveSpeed() const;
     float getAttackSpeed() const {
         return this->attackSpeed;
     }
@@ -39,7 +37,6 @@ public:
     }
     void addMovePoint(QPointF *nextPoint);
     QList<QPointF *> * getMovePoints();
-    void advance();
 protected:
     QList<QPointF*> *mouvements;
     int healthPoints; //Defines the health of the unit.

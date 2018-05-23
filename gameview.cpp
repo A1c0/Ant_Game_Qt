@@ -24,7 +24,7 @@ GameView::~GameView()
     delete ui;
 }
 
-void GameView::update(QList<Item*> data)
+void GameView::update(QList<Item *> data)
 {
     /*
     foreach(Item *item, data)
@@ -68,4 +68,23 @@ void GameView::on_harvesterCreate_clicked()
     this->control->createHarvester();
     current++;
     this->ui->harvesterCount->display(current);
+}
+
+void GameView::update(QList<Unit *> data)
+{
+    /*
+    foreach(Item *item, data)
+    {
+        ui->graphicsView->scene()->removeItem(item->getGraphicData());
+    }*/
+    scene->setSceneRect(0,0,1600,900); // make the scene 800x600 instead of infinity by infinity (default)
+    ui->graphicsView->setBackgroundBrush(QBrush(QImage(":/background/ressources_ant_game/herbe.png")));
+    ui->graphicsView->setScene(scene);
+    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->graphicsView->setFixedSize(1600,900);
+    foreach(Unit *unit, data)
+    {
+        ui->graphicsView->scene()->update();
+    }
 }
