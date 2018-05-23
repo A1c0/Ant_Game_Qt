@@ -6,7 +6,7 @@ GameModel::GameModel()
     dataUnit = *(new QList<Unit*>());
     foodSupplyPos = new QPointF(FS_X,FS_Y);
     nestPos = new QPointF(NP_X,NP_Y);
-    foodSupply = 500;
+    foodSupply = 50;
 }
 
 QList<Item *> GameModel::getDataItem()

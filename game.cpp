@@ -1,24 +1,21 @@
 #include "game.h"
-#include <QDebug>
-#include <typeinfo>
-#include <QTimer>
-#include <QtMath>
-#include <math.h>
-#include "harvester.h"
+#include <QFile>
+#include <QDir>
+
 Game::Game(GameModel *model, GameView *view) :
     view(view)
 {
-    QTimer *timer1 = new QTimer(this);
+    bgmF = new QMediaPlayer;
+    timer1 = new QTimer(this);
     this->connect(timer1, SIGNAL(timeout()), this, SLOT(mainProcess()));
-    QTimer *timer2 = new QTimer(this);
+    timer2 = new QTimer(this);
     this->connect(timer2, SIGNAL(timeout()), this, SLOT(update()));
     this->model = model;
     view->setControl(this);
     timer1->setInterval(15);
     timer2->setInterval(15);
     init_item();
-    timer1->start();
-    timer2->start();
+    this->bgm();
 }
 
 void Game::init_item()
@@ -56,14 +53,16 @@ void Game::createHarvester()
 {
     if(this->model->getFoodSupply() >= 50)
     {
+        this->sfx1();
         this->model->addFood(-50);
         this->model->addUnit(new Harvester(this->model->getNestPos()));
+        this->view->increaseHarvester();
         this->view->add_item(this->model->getDataUnit().last());
         this->view->update(this->model->getDataUnit());
     }
     else
     {
-
+        this->sfx2();
     }
 }
 
@@ -76,7 +75,6 @@ void Game::mainProcess()
             if(unit->getCanHarvest() == true)
             {
                 unit->harvest();
-                qDebug() << "general kenobi";
             }
             else
             {
@@ -170,7 +168,56 @@ void Game::advance(Unit * unit)
     }
     if( (unit->getGraphicData()->pos().rx() == NP_X && unit->getGraphicData()->pos().ry() == NP_Y )&& unit->getIsHarvester() == true && unit->getBringBack() == true )
     {
-        this->model->addFood(50);
+        this->model->addFood(10);
         unit->setBringBack(false);
     }
-  }
+}
+
+void Game::sfx1()
+{
+
+    QSoundEffect *player = new QSoundEffect;
+    player->setSource(QUrl::fromLocalFile(":/bgm/ressources_ant_game/sfx1.wav"));
+    player->setVolume(100);
+    player->play();
+}
+
+void Game::sfx2()
+{
+    QSoundEffect *player = new QSoundEffect;
+    player->setSource(QUrl::fromLocalFile(":/bgm/ressources_ant_game/sfx2.wav"));
+    player->setVolume(100);
+    player->play();
+}
+void Game::sfx3()
+{
+    QSoundEffect *player = new QSoundEffect;
+    player->setSource(QUrl::fromLocalFile(":/bgm/ressources_ant_game/sfx3.wav"));
+    player->setVolume(100);
+    player->play();
+}
+void Game::sfx4()
+{
+
+}
+void Game::bgm()
+{
+    bgmF = new QMediaPlayer;
+    bgmF->setMedia(QUrl("qrc:/bgm/ressources_ant_game/bgm.mp3"));
+    bgmF->setVolume(100);
+}
+
+void Game::start()
+{
+    this->sfx3();
+    bgmF->play();
+    this->timer1->start();
+    this->timer2->start();
+}
+
+void Game::pause()
+{
+    this->timer1->stop();
+    this->timer2->stop();
+    bgmF->pause();
+}

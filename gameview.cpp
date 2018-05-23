@@ -64,10 +64,7 @@ void GameView::test()
 
 void GameView::on_harvesterCreate_clicked()
 {
-    int current = this->ui->harvesterCount->intValue();
     this->control->createHarvester();
-    current++;
-    this->ui->harvesterCount->display(current);
 }
 
 void GameView::update(QList<Unit *> data)
@@ -107,4 +104,21 @@ int GameView::getSceneWidth()
 void GameView::foodDisplay(int nbr)
 {
     this->ui->foodNumber->display(nbr);
+}
+
+void GameView::increaseHarvester()
+{
+        int current = this->ui->harvesterCount->intValue();
+        current++;
+        this->ui->harvesterCount->display(current);
+}
+
+void GameView::on_startButton_clicked()
+{
+    this->control->start();
+}
+
+void GameView::on_pauseButton_clicked()
+{
+    this->control->pause();
 }

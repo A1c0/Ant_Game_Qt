@@ -17,5 +17,10 @@
         <file>ressources_ant_game/ant_moving.gif</file>
         <file>ressources_ant_game/ant_static.gif</file>
     </qresource>
-    <qresource prefix="/new/prefix1"/>
+    <qresource prefix="/bgm">
+        <file>ressources_ant_game/sfx1.wav</file>
+        <file>ressources_ant_game/sfx2.wav</file>
+        <file>ressources_ant_game/sfx3.wav</file>
+        <file>ressources_ant_game/bgm.mp3</file>
+    </qresource>
 </RCC>

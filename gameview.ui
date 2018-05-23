@@ -14,7 +14,8 @@
    <string>GameView</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(0, 0, 0);</string>
+   <string notr="true">background-color: rgb(0, 0, 0);
+color:rgb(255,255,255);</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -87,10 +88,51 @@ border-color: rgb(255, 170, 255);</string>
        <number>0</number>
       </property>
       <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="startButton">
+          <property name="minimumSize">
+           <size>
+            <width>75</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color:rgb(0,0,0);
+background-color: rgb(85, 170, 255);</string>
+          </property>
+          <property name="text">
+           <string>Start !</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pauseButton">
+          <property name="minimumSize">
+           <size>
+            <width>75</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color:rgb(0,0,0);
+background-color: rgb(85, 255, 127);</string>
+          </property>
+          <property name="text">
+           <string>Pause !</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
        <widget class="QFrame" name="frame">
         <property name="minimumSize">
          <size>
-          <width>150</width>
+          <width>0</width>
           <height>400</height>
          </size>
         </property>

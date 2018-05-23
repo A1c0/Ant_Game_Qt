@@ -32,10 +32,15 @@ public:
     int getSceneHeight();
     int getSceneWidth();
     void foodDisplay(int nbr);
+    void increaseHarvester();
 
 private slots:
     void on_harvesterCreate_clicked();
     void on_actionQuit_triggered();
+
+    void on_startButton_clicked();
+
+    void on_pauseButton_clicked();
 
 private:
     Ui::GameView *ui;
