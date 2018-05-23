@@ -6,9 +6,21 @@ Unit::Unit(QPointF * pos, QString imagePath, int xSize, int ySize):
 {
     this->mouvements = new QList<QPointF*>();
     this->mouvements->append(new QPointF(200,200));
+    this->mouvements->append(new QPointF(600,600));
     this->mouvements->append(new QPointF(600,200));
     this->mouvements->append(new QPointF(600,600));
+    this->mouvements->append(new QPointF(1000,200));
+    this->mouvements->append(new QPointF(600,600));
+    this->mouvements->append(new QPointF(1000,600));
+    this->mouvements->append(new QPointF(600,600));
+    this->mouvements->append(new QPointF(1000,1000));
+    this->mouvements->append(new QPointF(600,600));
+    this->mouvements->append(new QPointF(600,1000));
+    this->mouvements->append(new QPointF(600,600));
+    this->mouvements->append(new QPointF(200,1000));
+    this->mouvements->append(new QPointF(600,600));
     this->mouvements->append(new QPointF(200,600));
+    this->mouvements->append(new QPointF(600,600));
     this->canMove = true;
     this->healthPoints = 0;
     this->moveSpeed = 15;

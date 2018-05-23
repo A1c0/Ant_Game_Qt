@@ -29,14 +29,18 @@ public:
     void update(QList<Unit*> data);
     void test();
     void add_item(Item * item);
+    int getSceneHeight();
+    int getSceneWidth();
 
 private slots:
     void on_harvesterCreate_clicked();
+    void on_actionQuit_triggered();
 
 private:
     Ui::GameView *ui;
     QGraphicsScene * scene;
     Game *control;
+
 };
 
 #endif // GAMEVIEW_H

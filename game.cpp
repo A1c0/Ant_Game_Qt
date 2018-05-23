@@ -3,6 +3,7 @@
 #include <typeinfo>
 #include <QTimer>
 #include <QtMath>
+#include <math.h>
 
 Game::Game(GameModel *model, GameView *view) :
     view(view)
@@ -14,7 +15,7 @@ Game::Game(GameModel *model, GameView *view) :
     this->model = model;
     view->setControl(this);
     timer1->setInterval(15);
-    timer2->setInterval(5);
+    timer2->setInterval(15);
     init_item();
     timer1->start();
     timer2->start();
@@ -91,37 +92,50 @@ void Game::advance(Unit * unit)
         {
             newY = - unit->getMoveSpeed();
         }
-        qDebug() << "currentX = " << currentPos->rx();
-        qDebug() << "currentY = " << currentPos->ry();
-        qDebug() << "nextX = " << nextPos->rx();
-        qDebug() << "nextY = " << nextPos->ry();
-        qDebug() << "newX = " << newX;
-        qDebug() << "newY = " << newY;
-        qDebug() << "Movespeed" << unit->getMoveSpeed();
-        if(newX + currentPos->rx() > 900)
+
+        if(newX + currentPos->rx() > (this->view->getSceneWidth() - 100))
         {
-            newX = 900;
+            newX = 0;
+            unit->getMovePoints()->removeFirst();
         }
-        if(newY + currentPos->ry() > 900)
+        if(newY + currentPos->ry() > (this->view->getSceneHeight()- 100))
         {
-            newY = 900;
+            newY = 0;
+            unit->getMovePoints()->removeFirst();
         }
         if(newX + currentPos->rx() < 0)
         {
             newX = 0;
+            unit->getMovePoints()->removeFirst();
         }
         if(newY + currentPos->ry() < 0)
         {
             newY = 0;
+            unit->getMovePoints()->removeFirst();
+        }
+        qreal rotationFactor = qAcos(( 10 * newY ) / ( qSqrt( 10 * 10 ) * qSqrt( ( newX * newX ) + ( newY * newY ))));
+        rotationFactor *= 180;
+        rotationFactor /= M_PI;
+        if(newX > 0)
+        {
+            rotationFactor += 180;
+            if(newY > 0)
+                rotationFactor += 90;
+            else if(newY < 0)
+                rotationFactor -= 90;
         }
         if(qFabs(currentPos->rx() - nextPos->rx()) < unit->getMoveSpeed() && qFabs(currentPos->ry() - nextPos->ry()) < unit->getMoveSpeed())
         {
             unit->getGraphicData()->setPos(nextPos->rx(), nextPos->ry());
+            if(rotationFactor == rotationFactor)
+                unit->getGraphicData()->setRotation(rotationFactor);
             unit->getMovePoints()->removeFirst();
         }
         else
         {
             unit->getGraphicData()->setPos(newX + currentPos->rx(), newY + currentPos->ry());
+            if(rotationFactor == rotationFactor)
+                unit->getGraphicData()->setRotation(rotationFactor);
         }
     }
 

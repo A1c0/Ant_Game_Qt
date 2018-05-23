@@ -88,3 +88,18 @@ void GameView::update(QList<Unit *> data)
         ui->graphicsView->scene()->update();
     }
 }
+
+void GameView::on_actionQuit_triggered()
+{
+    close();
+}
+
+int GameView::getSceneHeight()
+{
+    return this->scene->height();
+}
+
+int GameView::getSceneWidth()
+{
+    return this->scene->width();
+}
