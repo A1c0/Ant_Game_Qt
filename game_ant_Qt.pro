@@ -50,5 +50,6 @@ FORMS += \
         gameview.ui
 
 RESOURCES += \
-    images.qrc
+    images.qrc \
+    bgm2.qrc
 

@@ -1,10 +1,16 @@
 #include "game.h"
-#include <QFile>
-#include <QDir>
+
 
 Game::Game(GameModel *model, GameView *view) :
     view(view)
 {
+    QMediaPlaylist *playlist = new QMediaPlaylist();
+    playlist->addMedia(QUrl("qrc:/bgm2/ressources_ant_game/bgmfx.mp3"));
+    playlist->setPlaybackMode(QMediaPlaylist::Loop);
+    BGSFX = new QMediaPlayer;
+    BGSFX->setPlaylist(playlist);
+    BGSFX->setVolume(100);
+    BGSFX->play();
     bgmF = new QMediaPlayer;
     timer1 = new QTimer(this);
     this->connect(timer1, SIGNAL(timeout()), this, SLOT(mainProcess()));
@@ -14,8 +20,11 @@ Game::Game(GameModel *model, GameView *view) :
     view->setControl(this);
     timer1->setInterval(15);
     timer2->setInterval(15);
+
     init_item();
-    this->bgm();
+    bgmF = new QMediaPlayer;
+    bgmF->setMedia(QUrl("qrc:/bgm2/ressources_ant_game/bgm1.mp3"));
+    bgmF->setVolume(50);
 }
 
 void Game::init_item()
@@ -192,7 +201,7 @@ void Game::sfx2()
 void Game::sfx3()
 {
     QSoundEffect *player = new QSoundEffect;
-    player->setSource(QUrl::fromLocalFile(":/bgm/ressources_ant_game/sfx3.wav"));
+    player->setSource(QUrl::fromLocalFile("qrc:/bgm/ressources_ant_game/sfx3.wav"));
     player->setVolume(100);
     player->play();
 }
@@ -202,9 +211,6 @@ void Game::sfx4()
 }
 void Game::bgm()
 {
-    bgmF = new QMediaPlayer;
-    bgmF->setMedia(QUrl("qrc:/bgm/ressources_ant_game/bgm.mp3"));
-    bgmF->setVolume(100);
 }
 
 void Game::start()

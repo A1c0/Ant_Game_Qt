@@ -13,6 +13,7 @@
 #include <QWindow>
 #include <QSoundEffect>
 #include <QMediaPlayer>
+#include <QMediaPlaylist>
 
 
 class GameView;
@@ -28,6 +29,7 @@ private:
     QTimer *timer1;
     QTimer *timer2;
     QMediaPlayer *bgmF;
+    QMediaPlayer * BGSFX;
 public:
     Game(GameModel *model, GameView *view);
     void init_item();

@@ -21,6 +21,5 @@
         <file>ressources_ant_game/sfx1.wav</file>
         <file>ressources_ant_game/sfx2.wav</file>
         <file>ressources_ant_game/sfx3.wav</file>
-        <file>ressources_ant_game/bgm.mp3</file>
     </qresource>
 </RCC>
