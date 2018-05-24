@@ -17,6 +17,9 @@ Game::Game(GameModel *model, GameView *view) :
     timer2 = new QTimer(this);
     this->connect(timer2, SIGNAL(timeout()), this, SLOT(update()));
     this->model = model;
+    timer3 = new QTimer(this);
+    this->connect(timer3, SIGNAL(timeout()), this, SLOT(run_item()));
+    timer3->setSingleShot(true);
     view->setControl(this);
     timer1->setInterval(15);
     timer2->setInterval(15);
@@ -55,19 +58,19 @@ void Game::init_item()
 
 void Game::run_item()
 {
-
+    this->model->addUnit(new Harvester(this->model->getNestPos()));
+    this->view->increaseHarvester();
+    this->view->add_item(this->model->getDataUnit().last());
+    this->view->update(this->model->getDataUnit());
 }
 
 void Game::createHarvester()
 {
-    if(this->model->getFoodSupply() >= 50)
+    if( this->model->getFoodSupply() >= 50)
     {
-        this->sfx1();
-        this->model->addFood(-50);
-        this->model->addUnit(new Harvester(this->model->getNestPos()));
-        this->view->increaseHarvester();
-        this->view->add_item(this->model->getDataUnit().last());
-        this->view->update(this->model->getDataUnit());
+            this->sfx1();
+            this->model->addFood(-50);
+            timer3->start(3000);
     }
     else
     {

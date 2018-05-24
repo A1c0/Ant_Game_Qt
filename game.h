@@ -28,15 +28,15 @@ private:
     GameView *view;
     QTimer *timer1;
     QTimer *timer2;
+    QTimer *timer3;
     QMediaPlayer *bgmF;
     QMediaPlayer * BGSFX;
 public:
     Game(GameModel *model, GameView *view);
     void init_item();
-    void run_item();
-    void createHarvester();
     void start();
     void pause();
+    void createHarvester();
 
 public slots:
     void update();
@@ -47,6 +47,8 @@ public slots:
     void sfx3();
     void sfx4();
     void bgm();
+    void run_item();
+
 };
 
 #endif // GAME_H
