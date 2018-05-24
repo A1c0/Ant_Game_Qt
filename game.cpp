@@ -201,7 +201,7 @@ void Game::sfx2()
 void Game::sfx3()
 {
     QSoundEffect *player = new QSoundEffect;
-    player->setSource(QUrl::fromLocalFile("qrc:/bgm/ressources_ant_game/sfx3.wav"));
+    player->setSource(QUrl::fromLocalFile(":/bgm/ressources_ant_game/sfx3.wav"));
     player->setVolume(100);
     player->play();
 }
