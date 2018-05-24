@@ -38,6 +38,12 @@ public:
     QGraphicsScene * getScene();
     void activateSoldierCreate();
     void activateHarvesterCreate();
+    void deactivateSoldierCreate();
+    void deactivateHarvesterCreate();
+    void updateDisplayLCD(int newVal);
+    void wavePrgReset();
+    void wavePrgSet(int elapsed);
+
 
 
 private slots:

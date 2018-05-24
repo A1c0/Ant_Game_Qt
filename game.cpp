@@ -1,4 +1,6 @@
 #include "game.h"
+#include <time.h>
+#include <stdlib.h>
 
 
 Game::Game(GameModel *model, GameView *view) :
@@ -13,6 +15,8 @@ Game::Game(GameModel *model, GameView *view) :
     BGSFX->setVolume(100);
     BGSFX->play();
     bgmF = new QMediaPlayer;
+    clock = new QTime();
+    clock->start();
     timer1 = new QTimer(this);
     this->connect(timer1, SIGNAL(timeout()), this, SLOT(mainProcess()));
     timer2 = new QTimer(this);
@@ -30,6 +34,12 @@ Game::Game(GameModel *model, GameView *view) :
     timer1->setInterval(40);
     timer2->setInterval(40);
     timer5->setInterval(40);
+    timer6 = new QTimer(this);
+    this->connect(timer6, SIGNAL(timeout()), this, SLOT(createWave()));
+    timer6->setInterval(30000);
+    timer7 = new QTimer();
+    this->connect(timer7, SIGNAL(timeout()), this, SLOT(updateHUD()));
+    timer7->setInterval(24);
     init_item();
     bgmF = new QMediaPlayer;
     bgmF->setMedia(QUrl("qrc:/bgm2/ressources_ant_game/bgm1.mp3"));
@@ -50,7 +60,6 @@ void Game::init_item()
     this->model->addItem(new Item(new QPointF(950,230), ":/item/ressources_ant_game/Feuille_1.gif", 100, 100));
     this->model->addItem(new Item(new QPointF(360,200), ":/item/ressources_ant_game/Feuille_2.gif", 100, 100));
     this->model->addUnit((new Harvester(this->model->getNestPos())));
-    this->model->addUnit(new Enemy(new QPointF(800,800)));
     this->view->foodDisplay(this->model->getFoodSupply());
     this->view->update(this->model->getDataItem());
     this->view->update(this->model->getDataUnit());
@@ -90,10 +99,12 @@ void Game::createHarvester()
     {
             this->sfx1();
             this->model->addFood(-50);
+            this->view->deactivateHarvesterCreate();
             timer3->start(2000);
     }
     else
     {
+        this->view->activateHarvesterCreate();
         this->sfx2();
     }
 }
@@ -104,10 +115,12 @@ void Game::createSoldier()
     {
             this->sfx1();
             this->model->addFood(-100);
+        this->view->deactivateSoldierCreate();
             timer4->start(3000);
     }
     else
     {
+        this->view->activateSoldierCreate();
         this->sfx2();
     }
 }
@@ -261,6 +274,9 @@ void Game::start()
     this->timer1->start();
     this->timer2->start();
     this->timer5->start();
+    this->timer6->start();
+    this->timer7->start();
+    clock->start();
 }
 
 void Game::pause()
@@ -268,6 +284,8 @@ void Game::pause()
     this->timer1->stop();
     this->timer2->stop();
     this->timer5->stop();
+    this->timer6->stop();
+    this->timer7->stop();
     bgmF->pause();
 }
 
@@ -345,4 +363,56 @@ int Game::findInModelWithQGraphicItem(QGraphicsItem *qgi) {
         }
     }
     return -1;
+}
+
+void Game::waveManagement()
+{
+    this->model->setWaveNumber(1);
+    srand(time(NULL));
+    int foeNumber = (rand() % ((this->model->getWaveNumber() +2) - 1)) + 1;
+    int switcher = (rand() % 2);
+    int xpos;
+    int ypos;
+    for(int i = 0; i < foeNumber; i++)
+    {
+
+        switch (switcher) {
+        case 0:
+            xpos = rand() % 1500;
+            ypos = (rand() % 100) + 700;
+            break;
+        case 1:
+            xpos = rand() % 1500;
+            ypos = rand() % 100;
+            break;
+        default :
+            xpos = 1500;
+            ypos = 800;
+            break;
+        }
+        this->model->addUnit(new Enemy(new QPointF(xpos,ypos)));
+        this->view->add_item(this->model->getDataUnit().last());
+    }
+}
+
+void Game::createWave()
+{
+    this->waveManagement();
+}
+
+void Game::updateWaveNumber()
+{
+    this->view->updateDisplayLCD(this->model->getWaveNumber() + 1);
+}
+
+void Game::updateHUD()
+{
+    this->updateWaveNumber();
+    if(clock->elapsed() >= 30000)
+    {
+        clock->restart();
+        this->view->wavePrgReset();
+    }
+    this->updateWaveNumber();
+    this->view->wavePrgSet(clock->elapsed());
 }

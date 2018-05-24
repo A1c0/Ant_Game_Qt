@@ -16,6 +16,7 @@
 #include <QMediaPlaylist>
 #include "enemy.h"
 #include "soldier.h"
+#include <QTime>
 
 
 class GameView;
@@ -33,8 +34,11 @@ private:
     QTimer *timer3;
     QTimer *timer4;
     QTimer *timer5;
+    QTimer *timer6;
+    QTimer *timer7;
     QMediaPlayer *bgmF;
     QMediaPlayer * BGSFX;
+    QTime * clock;
 public:
     Game(GameModel *model, GameView *view);
     void init_item();
@@ -45,6 +49,8 @@ public:
     void clearPath();
     void ManageCollide(Unit * unit, qreal newX, qreal newY);
     int findInModelWithQGraphicItem(QGraphicsItem *qgi);
+    void waveManagement();
+    void updateWaveNumber();
 
 public slots:
     void update();
@@ -60,6 +66,9 @@ public slots:
     void fight(Unit * attacker, Unit * target);
     void addPathPoint(QPointF *p);
     void loopSoldiers();
+    void createWave();
+    void updateHUD();
+
 
 };
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1792</width>
-    <height>1005</height>
+    <width>1786</width>
+    <height>995</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@ color:rgb(255,255,255);</string>
          <number>0</number>
         </property>
         <property name="rightMargin">
-         <number>900</number>
+         <number>500</number>
         </property>
         <item>
          <widget class="QLabel" name="label">
@@ -38,7 +38,7 @@ color:rgb(255,255,255);</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">font: 22pt &quot;Tahoma&quot;;
+           <string notr="true">font: 18pt &quot;Tahoma&quot;;
 color: rgb(255, 255, 255);
 border-color: rgb(255, 170, 255);</string>
           </property>
@@ -58,6 +58,61 @@ border-color: rgb(255, 170, 255);</string>
           <property name="styleSheet">
            <string notr="true">font: 25pt &quot;MS Sans Serif&quot;;
 color:rgb(0, 170, 0);
+border-color: rgb(255, 170, 255);</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="styleSheet">
+           <string notr="true">font: 14pt &quot;Tahoma&quot;;
+color: rgb(255, 255, 255);
+border-color: rgb(255, 170, 255);</string>
+          </property>
+          <property name="text">
+           <string>                 Time Before new wave :</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="waveProgress">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>200</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 0, 0);</string>
+          </property>
+          <property name="value">
+           <number>24</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="styleSheet">
+           <string notr="true">font: 14pt &quot;Tahoma&quot;;
+color: rgb(255, 255, 255);
+border-color: rgb(255, 170, 255);</string>
+          </property>
+          <property name="text">
+           <string>Wave Number :</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLCDNumber" name="waveNumber">
+          <property name="styleSheet">
+           <string notr="true">font: 25pt &quot;MS Sans Serif&quot;;
+color:rgb(0, 0, 170);
 border-color: rgb(255, 170, 255);</string>
           </property>
          </widget>
@@ -250,8 +305,8 @@ color:rgb(0, 170, 0);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1792</width>
-     <height>25</height>
+     <width>1786</width>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuquit">

@@ -6,7 +6,8 @@ GameModel::GameModel()
     dataUnit = *(new QList<Unit*>());
     foodSupplyPos = new QPointF(FS_X,FS_Y);
     nestPos = new QPointF(NP_X,NP_Y);
-    foodSupply = 500;
+    foodSupply = 200;
+    waveNumber = 0;
 }
 
 QList<Item *> GameModel::getDataItem()
@@ -69,4 +70,13 @@ void GameModel::clearPathPoints()
             this->pathPointList.removeAll(points);
         }
     }
+}
+
+void GameModel::setWaveNumber(int number)
+{
+    this->waveNumber += number;
+}
+int GameModel::getWaveNumber()
+{
+    return this->waveNumber;
 }

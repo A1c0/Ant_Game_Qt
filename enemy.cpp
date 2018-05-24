@@ -8,5 +8,7 @@ Enemy::Enemy(QPointF * pos):
     this->addMovePoint(nest);
     this->moveSpeed = 1;
     this->isEnnemy = true;
+    this->canAttack = false;
+    this->canHarvest = false;
 }
 

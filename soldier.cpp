@@ -9,6 +9,7 @@ Soldier::Soldier(QPointF *pos):
     this->canHarvest = false;
     this->isEnnemy = false;
     this->canAttack = false;
+    this->healthPoints = 100;
     //'qDebug() << this->mouvements->last()->rx();
 }
 

@@ -16,6 +16,7 @@ GameView::GameView(QWidget *parent) :
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setFixedSize(1600,900);
+    this->ui->waveProgress->setRange(0,30000);
 
 }
 
@@ -62,7 +63,6 @@ void GameView::test()
 void GameView::on_harvesterCreate_clicked()
 {
     this->control->createHarvester();
-    this->ui->harvesterCreate->setDisabled(true);
 }
 
 void GameView::update(QList<Unit *> data)
@@ -137,17 +137,30 @@ void GameView::mousePressEvent(QMouseEvent *event){
 void GameView::on_soldierCreate_clicked()
 {
         this->control->createSoldier();
-        this->ui->soldierCreate->setDisabled(true);
 }
 
 void GameView::activateSoldierCreate()
 {
+    this->ui->soldierCreate->setEnabled(true);
     this->ui->soldierCreate->setDisabled(false);
 }
 
 void GameView::activateHarvesterCreate()
 {
     this->ui->harvesterCreate->setDisabled(false);
+    this->ui->harvesterCreate->setEnabled(true);
+}
+
+void GameView::deactivateHarvesterCreate()
+{
+    this->ui->harvesterCreate->setDisabled(true);
+    this->ui->harvesterCreate->setEnabled(false);
+}
+
+void GameView::deactivateSoldierCreate()
+{
+    this->ui->soldierCreate->setDisabled(true);
+    this->ui->soldierCreate->setEnabled(false);
 }
 
 void GameView::increaseSoldier()
@@ -165,4 +178,19 @@ void GameView::on_pushButton_clicked()
 QGraphicsScene *GameView::getScene()
 {
     return this->ui->graphicsView->scene();
+}
+
+void GameView::updateDisplayLCD(int newVal)
+{
+    this->ui->waveNumber->display(newVal);
+}
+
+void GameView::wavePrgSet(int elapsed)
+{
+    this->ui->waveProgress->setValue(elapsed);
+}
+
+void GameView::wavePrgReset()
+{
+    this->ui->waveProgress->setValue(0);
 }

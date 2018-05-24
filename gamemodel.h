@@ -16,6 +16,7 @@ private:
     QPointF * foodSupplyPos;
     QPointF * nestPos;
     QList<QPointF*> pathPointList;
+    int waveNumber;
 public:
     GameModel();
     void setDataItem(const QList<Item*> &value);
@@ -30,6 +31,8 @@ public:
     void addPathPoint(QPointF * p);
     void clearPathPoints();
     QList<QPointF*> getPathPointList();
+    void setWaveNumber(int number);
+    int getWaveNumber();
 };
 
 #endif // GAMEMODEL_H
