@@ -52,6 +52,7 @@ void Game::init_item()
     this->model->addItem(new Item(new QPointF(100, 100), ":/item/ressources_ant_game/rock_1.png", 200, 200));
     this->model->addItem(new Item(new QPointF(500, 100), ":/item/ressources_ant_game/rock_2.png", 100, 100));
     this->model->addItem(new Item(this->model->getNestPos(), ":/item/ressources_ant_game/Fourmilière.gif", 100, 100));
+    this->model->getDataItem().last()->setCollidable(false);
     this->model->addItem(new Item(this->model->getfoodPos(), ":/item/ressources_ant_game/sugar.png", 100, 100));
     this->model->getDataItem().last()->setCollidable(false);
     this->model->addItem(new Item(new QPointF(400,800), ":/item/ressources_ant_game/Feuille_1.gif", 100, 100));
@@ -60,7 +61,7 @@ void Game::init_item()
     this->model->addItem(new Item(new QPointF(950,230), ":/item/ressources_ant_game/Feuille_1.gif", 100, 100));
     this->model->addItem(new Item(new QPointF(700,300), ":/item/ressources_ant_game/Feuille_1.gif", 300, 300));
     this->model->addItem(new Item(new QPointF(360,200), ":/item/ressources_ant_game/Feuille_2.gif", 100, 100));
-    this->model->addItem(new Item(new QPointF(600, 400), ":/item/ressources_ant_game/rock_2.png", 200, 200));
+    this->model->addItem(new Item(new QPointF(600, 400), ":/item/ressources_ant_game/rock_2.png", 300, 300));
     this->model->addUnit((new Harvester(this->model->getNestPos())));
     this->view->foodDisplay(this->model->getFoodSupply());
     this->view->update(this->model->getDataItem());
@@ -164,7 +165,6 @@ void Game::advance(Unit * unit)
             QPointF * nextPos = new QPointF(unit->getMovePoints()->first()->rx(),unit->getMovePoints()->first()->ry());
             qreal newX = (nextPos->rx() - currentPos->rx());
             qreal newY = (nextPos->ry() - currentPos->ry());
-            this->manageCollide(unit, &newX, &newY);
             if(qFabs(newX) > unit->getMoveSpeed()  && newX > 0)
             {
                 newX = unit->getMoveSpeed();
@@ -202,6 +202,7 @@ void Game::advance(Unit * unit)
                 newY = 0;
                 unit->getMovePoints()->removeFirst();
             }
+            this->manageCollide(unit, &newX, &newY);
             qreal rotationFactor = qAcos(( 10 * newY ) / ( qSqrt( 10 * 10 ) * qSqrt( ( newX * newX ) + ( newY * newY ))));
             rotationFactor *= 180;
             rotationFactor /= M_PI;
@@ -330,36 +331,57 @@ void Game::clearPath()
 
 void Game::manageCollide(Unit * unit, qreal *newX, qreal *newY)
 {
+    qDebug() << "before point:" << *newX + unit->getGraphicData()->pos.rx() << "/ " << *newY + unit->getGraphicData()->pos.ry();
     QGraphicsItem * qgi;
+    qreal pointcX = 0;
+    qreal pointcY = 0;
     int index = 0;
     QPointF * currentPos = new QPointF(unit->getGraphicData()->pos().rx(), unit->getGraphicData()->pos().ry());
     if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + *newX, currentPos->ry() + *newY), QTransform())) == NULL) {
         qDebug() << "PAF avant !";
         if ((index = this->findInModelWithQGraphicItem(qgi)) >= 0) { // c'est un item
             qDebug() << "PAF !" << this->model->getDataItem().at(index);
+            if(this->model->getDataItem().at(index)->getIsCollidable()){
+                pointcX = qCos(M_PI/2)*(*newX) - qSin(M_PI/2)*(*newY) + unit->getGraphicData()->pos.rx();
+                pointcY = qSin(M_PI/2)*(*newX) - qCos(M_PI/2)*(*newY) + unit->getGraphicData()->pos.ry();
+            }
         }
     }
     else if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + *newX + unit->getGraphicData()->pixmap().width(), currentPos->ry() + *newY + unit->getGraphicData()->pixmap().height()), QTransform())) == NULL) {
         qDebug() << "PAF avant !";
         if ((index = this->findInModelWithQGraphicItem(qgi)) >= 0) { // c'est un item
             qDebug() << "PAF !" << this->model->getDataItem().at(index);
+            if(this->model->getDataItem().at(index)->getIsCollidable()){
+                pointcX = qCos(M_PI/2)*(*newX) - qSin(M_PI/2)*(*newY) + unit->getGraphicData()->pos.rx();
+                pointcY = qSin(M_PI/2)*(*newX) - qCos(M_PI/2)*(*newY) + unit->getGraphicData()->pos.ry();
+            }
         }
     }
     else if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + *newX, currentPos->ry() + *newY + unit->getGraphicData()->pixmap().height()), QTransform())) == NULL) {
         qDebug() << "PAF avant !";
         if ((index = this->findInModelWithQGraphicItem(qgi)) >= 0) { // c'est un item
             qDebug() << "PAF !" << this->model->getDataItem().at(index);
+            if(this->model->getDataItem().at(index)->getIsCollidable()){
+                pointcX = qCos(M_PI/2)*(*newX) - qSin(M_PI/2)*(*newY) + unit->getGraphicData()->pos.rx();
+                pointcY = qSin(M_PI/2)*(*newX) - qCos(M_PI/2)*(*newY) + unit->getGraphicData()->pos.ry();
+            }
         }
     }
     else if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + *newX + unit->getGraphicData()->pixmap().width(), currentPos->ry() + *newY), QTransform())) == NULL) {
         qDebug() << "PAF avant !";
         if ((index = this->findInModelWithQGraphicItem(qgi)) >= 0) { // c'est un item
             qDebug() << "PAF !" << this->model->getDataItem().at(index);
+            if(this->model->getDataItem().at(index)->getIsCollidable()){
+                pointcX = qCos(M_PI/2)*(*newX) - qSin(M_PI/2)*(*newY) + unit->getGraphicData()->pos.rx();
+                pointcY = qSin(M_PI/2)*(*newX) - qCos(M_PI/2)*(*newY) + unit->getGraphicData()->pos.ry();
+            }
         }
     }
     else {
         qDebug() << "ca va !";
     }
+    qDebug() << "new point :" << pointcX << ", " << *pointcY;
+    //qDebug() << "new x,y :" << *newX << ", " << *newY;
 }
 int Game::findInModelWithQGraphicItem(QGraphicsItem *qgi) {
     foreach (Item * item, this->model->getDataItem())

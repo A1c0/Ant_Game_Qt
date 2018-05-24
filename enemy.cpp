@@ -10,5 +10,6 @@ Enemy::Enemy(QPointF * pos):
     this->isEnnemy = true;
     this->canAttack = false;
     this->canHarvest = false;
+    this->setCollidable(true);
 }
 
