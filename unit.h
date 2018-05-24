@@ -17,7 +17,7 @@ class Unit : public Item
 public:
     Unit(QPointF *pos, QString imagePath, int xSize = 200, int ySize = 200);
     ~Unit();
-    void attack();
+    void attack(Unit *target);
     void die();
     //getters :
     int getHealthPoints() const {
@@ -42,6 +42,12 @@ public:
     virtual bool getBringBack();
     virtual void setBringBack(bool condition);
     virtual bool getIsHarvester();
+    bool getCanAttack();
+    Unit * getTarget();
+    void setCanAttack(bool condition);
+    void setTarget(Unit * target);
+    virtual void setPath(QList<QPointF*> path);
+    virtual void loopPoints();
 protected:
     QList<QPointF*> *mouvements;
     int healthPoints; //Defines the health of the unit.
@@ -50,5 +56,8 @@ protected:
     int attackValue; //Defines the attack value of the unit (total DPS is calculated using attackSpeed * attack)
     bool canHarvest;
     bool bringBack;
+    bool canAttack = false;
+    Unit * target = nullptr;
+    bool isEnnemy;
 };
 #endif // UNIT_H

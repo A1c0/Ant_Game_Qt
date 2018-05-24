@@ -15,6 +15,7 @@ private:
     int foodSupply;
     QPointF * foodSupplyPos;
     QPointF * nestPos;
+    QList<QPointF*> pathPointList;
 public:
     GameModel();
     void setDataItem(const QList<Item*> &value);
@@ -26,6 +27,9 @@ public:
     void addFood(int someFood);
     QPointF *getfoodPos();
     QPointF *getNestPos();
+    void addPathPoint(QPointF * p);
+    void clearPathPoints();
+    QList<QPointF*> getPathPointList();
 };
 
 #endif // GAMEMODEL_H

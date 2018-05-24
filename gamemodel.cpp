@@ -6,7 +6,7 @@ GameModel::GameModel()
     dataUnit = *(new QList<Unit*>());
     foodSupplyPos = new QPointF(FS_X,FS_Y);
     nestPos = new QPointF(NP_X,NP_Y);
-    foodSupply = 50;
+    foodSupply = 500;
 }
 
 QList<Item *> GameModel::getDataItem()
@@ -48,4 +48,25 @@ QPointF * GameModel::getfoodPos(){
 
 QPointF * GameModel::getNestPos(){
     return this->nestPos;
+}
+
+void GameModel::addPathPoint(QPointF *p)
+{
+    pathPointList << p;
+}
+
+QList<QPointF*> GameModel::getPathPointList()
+{
+    return this->pathPointList;
+}
+
+void GameModel::clearPathPoints()
+{
+    if(this->pathPointList.size() != 0)
+    {
+        foreach (QPointF * points, this->pathPointList)
+        {
+            this->pathPointList.removeAll(points);
+        }
+    }
 }

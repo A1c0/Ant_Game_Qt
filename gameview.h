@@ -33,6 +33,12 @@ public:
     int getSceneWidth();
     void foodDisplay(int nbr);
     void increaseHarvester();
+    void increaseSoldier();
+    void mousePressEvent(QMouseEvent *event);
+    QGraphicsScene * getScene();
+    void activateSoldierCreate();
+    void activateHarvesterCreate();
+
 
 private slots:
     void on_harvesterCreate_clicked();
@@ -42,11 +48,20 @@ private slots:
 
     void on_pauseButton_clicked();
 
+    void on_soldierCreate_clicked();
+
+    void on_pushButton_clicked();
+
 private:
     Ui::GameView *ui;
     QGraphicsScene * scene;
     Game *control;
 
+signals:
+    void newPoint(QPointF *p);
+
 };
+
+
 
 #endif // GAMEVIEW_H

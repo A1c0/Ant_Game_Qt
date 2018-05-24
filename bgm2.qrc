@@ -3,4 +3,8 @@
         <file>ressources_ant_game/bgmfx.mp3</file>
         <file>ressources_ant_game/bgm1.mp3</file>
     </qresource>
+    <qresource prefix="/gif">
+        <file>ressources_ant_game/enemy.gif</file>
+        <file>ressources_ant_game/ant_soldier.png</file>
+    </qresource>
 </RCC>

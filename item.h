@@ -2,6 +2,7 @@
 #define ITEM_H
 #include <QString>
 #include <QGraphicsPixmapItem>
+#include "constant.h"
 
 class ItemProp: public QObject,public QGraphicsPixmapItem{
     Q_OBJECT
@@ -17,11 +18,14 @@ public:
     ItemProp *getGraphicData();
     bool getCanMove();
     QPointF * getPos();
+    void setCollidable(bool condition);
+    bool getIsCollidable();
 
 protected:
     QPointF *pos;
     ItemProp * graphicData;
     bool canMove;
+    bool canCollide;
 };
 
 

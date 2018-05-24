@@ -14,6 +14,8 @@
 #include <QSoundEffect>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
+#include "enemy.h"
+#include "soldier.h"
 
 
 class GameView;
@@ -29,6 +31,8 @@ private:
     QTimer *timer1;
     QTimer *timer2;
     QTimer *timer3;
+    QTimer *timer4;
+    QTimer *timer5;
     QMediaPlayer *bgmF;
     QMediaPlayer * BGSFX;
 public:
@@ -37,6 +41,10 @@ public:
     void start();
     void pause();
     void createHarvester();
+    void createSoldier();
+    void clearPath();
+    void ManageCollide(Unit * unit, qreal newX, qreal newY);
+    int findInModelWithQGraphicItem(QGraphicsItem *qgi);
 
 public slots:
     void update();
@@ -47,7 +55,11 @@ public slots:
     void sfx3();
     void sfx4();
     void bgm();
-    void run_item();
+    void spawnHarvester();
+    void spawnSoldier();
+    void fight(Unit * attacker, Unit * target);
+    void addPathPoint(QPointF *p);
+    void loopSoldiers();
 
 };
 

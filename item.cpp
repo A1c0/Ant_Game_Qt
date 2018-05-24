@@ -16,6 +16,7 @@ ItemProp::ItemProp(QPointF * pos, QString imagePath, int xSize, int ySize)
 
 Item::Item(QPointF * pos, QString imagePath, int xSize, int ySize)
 {
+    this->setCollidable(true);
     this->canMove = false;
     this->pos = pos;
     this->graphicData = new ItemProp(pos, imagePath, xSize, ySize);
@@ -32,4 +33,13 @@ bool Item::getCanMove(){
 
 QPointF * Item::getPos(){
     return this->pos;
+}
+
+void Item::setCollidable(bool condition)
+{
+    this->canCollide = condition;
+}
+bool Item::getIsCollidable()
+{
+    return this->canCollide;
 }

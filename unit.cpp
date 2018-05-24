@@ -22,7 +22,7 @@ Unit::Unit(QPointF * pos, QString imagePath, int xSize, int ySize):
     this->mouvements->append(new QPointF(200,600));
     this->mouvements->append(new QPointF(600,600));*/
     this->canMove = true;
-    this->healthPoints = 10;
+    this->healthPoints = 100;
     this->canHarvest = false;
     this->moveSpeed = 15;
     this->attackSpeed = 100;
@@ -68,3 +68,23 @@ bool Unit::getIsHarvester()
 {
     return false;
 }
+
+bool Unit::getCanAttack()
+{
+    return this->canAttack;
+}
+Unit *Unit::getTarget()
+{
+    return this->target;
+}
+void Unit::setTarget(Unit * target)
+{
+    this->target = target;
+}
+void Unit::setCanAttack(bool condition)
+{
+    this->canAttack = condition;
+}
+
+void Unit::setPath(QList<QPointF*> path){}
+void Unit::loopPoints(){}

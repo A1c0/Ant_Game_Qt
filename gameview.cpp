@@ -37,10 +37,7 @@ void GameView::update(QList<Item *> data)
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setFixedSize(1600,900);
-    foreach(Item *item, data)
-    {
-        ui->graphicsView->scene()->update();
-    }
+    ui->graphicsView->scene()->update();
 }
 
 void GameView::add_item(Item * item)
@@ -65,6 +62,7 @@ void GameView::test()
 void GameView::on_harvesterCreate_clicked()
 {
     this->control->createHarvester();
+    this->ui->harvesterCreate->setDisabled(true);
 }
 
 void GameView::update(QList<Unit *> data)
@@ -110,7 +108,7 @@ void GameView::increaseHarvester()
 {
         int current = this->ui->harvesterCount->intValue();
         current++;
-        this->ui->harvesterCount->display(current);
+        this->ui->harvesterCount->display(current + 1);
 }
 
 void GameView::on_startButton_clicked()
@@ -121,4 +119,50 @@ void GameView::on_startButton_clicked()
 void GameView::on_pauseButton_clicked()
 {
     this->control->pause();
+}
+
+void GameView::mousePressEvent(QMouseEvent *event){
+    int posX = event->pos().x();
+    int posY = event->pos().y();
+    qDebug() << this->ui->graphicsView->scene()->height();
+    qDebug() << this->ui->graphicsView->scene()->width();
+    QPointF * point = new QPointF(this->ui->graphicsView->mapFromGlobal(event->pos()));
+    qDebug() << "x/y pos mapToGlobal : " << point;
+
+    if(point->rx() >= 0 && point->rx() <= this->ui->graphicsView->scene()->width() && point->ry() >= 0 && point->ry() <= this->ui->graphicsView->scene()->height() ) {
+        emit newPoint(point);
+    }
+}
+
+void GameView::on_soldierCreate_clicked()
+{
+        this->control->createSoldier();
+        this->ui->soldierCreate->setDisabled(true);
+}
+
+void GameView::activateSoldierCreate()
+{
+    this->ui->soldierCreate->setDisabled(false);
+}
+
+void GameView::activateHarvesterCreate()
+{
+    this->ui->harvesterCreate->setDisabled(false);
+}
+
+void GameView::increaseSoldier()
+{
+        int current = this->ui->soldierCount->intValue();
+        current++;
+        this->ui->soldierCount->display(current);
+}
+
+void GameView::on_pushButton_clicked()
+{
+    this->control->clearPath();
+}
+
+QGraphicsScene *GameView::getScene()
+{
+    return this->ui->graphicsView->scene();
 }
