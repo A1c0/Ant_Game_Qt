@@ -47,7 +47,7 @@ public:
     void createHarvester();
     void createSoldier();
     void clearPath();
-    void ManageCollide(Unit * unit, qreal newX, qreal newY);
+    void manageCollide(Unit * unit, qreal *newX, qreal *newY);
     int findInModelWithQGraphicItem(QGraphicsItem *qgi);
     void waveManagement();
     void updateWaveNumber();

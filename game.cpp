@@ -58,7 +58,9 @@ void Game::init_item()
     this->model->addItem(new Item(new QPointF(1500,300), ":/item/ressources_ant_game/Feuille_2.gif", 100, 100));
     this->model->addItem(new Item(new QPointF(1300,100), ":/item/ressources_ant_game/Feuille_2.gif", 100, 100));
     this->model->addItem(new Item(new QPointF(950,230), ":/item/ressources_ant_game/Feuille_1.gif", 100, 100));
+    this->model->addItem(new Item(new QPointF(700,300), ":/item/ressources_ant_game/Feuille_1.gif", 300, 300));
     this->model->addItem(new Item(new QPointF(360,200), ":/item/ressources_ant_game/Feuille_2.gif", 100, 100));
+    this->model->addItem(new Item(new QPointF(600, 400), ":/item/ressources_ant_game/rock_2.png", 200, 200));
     this->model->addUnit((new Harvester(this->model->getNestPos())));
     this->view->foodDisplay(this->model->getFoodSupply());
     this->view->update(this->model->getDataItem());
@@ -162,6 +164,7 @@ void Game::advance(Unit * unit)
             QPointF * nextPos = new QPointF(unit->getMovePoints()->first()->rx(),unit->getMovePoints()->first()->ry());
             qreal newX = (nextPos->rx() - currentPos->rx());
             qreal newY = (nextPos->ry() - currentPos->ry());
+            this->manageCollide(unit, &newX, &newY);
             if(qFabs(newX) > unit->getMoveSpeed()  && newX > 0)
             {
                 newX = unit->getMoveSpeed();
@@ -325,28 +328,33 @@ void Game::clearPath()
     this->model->clearPathPoints();
 }
 
-void Game::ManageCollide(Unit * unit, qreal newX, qreal newY)
+void Game::manageCollide(Unit * unit, qreal *newX, qreal *newY)
 {
     QGraphicsItem * qgi;
+    int index = 0;
     QPointF * currentPos = new QPointF(unit->getGraphicData()->pos().rx(), unit->getGraphicData()->pos().ry());
-    if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + newX, currentPos->ry() + newY), QTransform())) == NULL) {
-        if (this->findInModelWithQGraphicItem(qgi) >= 0) {
-            qDebug() << "PAF !" << this->model->getDataItem().at(this->findInModelWithQGraphicItem(qgi));
+    if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + *newX, currentPos->ry() + *newY), QTransform())) == NULL) {
+        qDebug() << "PAF avant !";
+        if ((index = this->findInModelWithQGraphicItem(qgi)) >= 0) { // c'est un item
+            qDebug() << "PAF !" << this->model->getDataItem().at(index);
         }
     }
-    else if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + newX + unit->getGraphicData()->pixmap().width(), currentPos->ry() + newY + unit->getGraphicData()->pixmap().height()), QTransform())) == NULL) {
-        if (this->findInModelWithQGraphicItem(qgi) >= 0) {
-            qDebug() << "PAF !" << this->model->getDataItem().at(this->findInModelWithQGraphicItem(qgi));
+    else if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + *newX + unit->getGraphicData()->pixmap().width(), currentPos->ry() + *newY + unit->getGraphicData()->pixmap().height()), QTransform())) == NULL) {
+        qDebug() << "PAF avant !";
+        if ((index = this->findInModelWithQGraphicItem(qgi)) >= 0) { // c'est un item
+            qDebug() << "PAF !" << this->model->getDataItem().at(index);
         }
     }
-    else if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + newX, currentPos->ry() + newY + unit->getGraphicData()->pixmap().height()), QTransform())) == NULL) {
-        if (this->findInModelWithQGraphicItem(qgi) >= 0) {
-            qDebug() << "PAF !" << this->model->getDataItem().at(this->findInModelWithQGraphicItem(qgi));
+    else if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + *newX, currentPos->ry() + *newY + unit->getGraphicData()->pixmap().height()), QTransform())) == NULL) {
+        qDebug() << "PAF avant !";
+        if ((index = this->findInModelWithQGraphicItem(qgi)) >= 0) { // c'est un item
+            qDebug() << "PAF !" << this->model->getDataItem().at(index);
         }
     }
-    else if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + newX + unit->getGraphicData()->pixmap().width(), currentPos->ry() + newY), QTransform())) == NULL) {
-        if (this->findInModelWithQGraphicItem(qgi) >= 0) {
-            qDebug() << "PAF !" << this->model->getDataItem().at(this->findInModelWithQGraphicItem(qgi));
+    else if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + *newX + unit->getGraphicData()->pixmap().width(), currentPos->ry() + *newY), QTransform())) == NULL) {
+        qDebug() << "PAF avant !";
+        if ((index = this->findInModelWithQGraphicItem(qgi)) >= 0) { // c'est un item
+            qDebug() << "PAF !" << this->model->getDataItem().at(index);
         }
     }
     else {
