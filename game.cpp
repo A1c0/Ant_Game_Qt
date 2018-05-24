@@ -331,10 +331,9 @@ void Game::clearPath()
 
 void Game::manageCollide(Unit * unit, qreal *newX, qreal *newY)
 {
+    qDebug() << "before new:" << *newX << "/ " << *newY;
     qDebug() << "before point:" << *newX + unit->getGraphicData()->pos().rx() << "/ " << *newY + unit->getGraphicData()->pos().ry();
     QGraphicsItem * qgi;
-    qreal pointcX = 0;
-    qreal pointcY = 0;
     int index = 0;
     QPointF * currentPos = new QPointF(unit->getGraphicData()->pos().rx(), unit->getGraphicData()->pos().ry());
     if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + *newX, currentPos->ry() + *newY), QTransform())) == NULL) {
@@ -342,8 +341,8 @@ void Game::manageCollide(Unit * unit, qreal *newX, qreal *newY)
         if ((index = this->findInModelWithQGraphicItem(qgi)) >= 0) { // c'est un item
             qDebug() << "PAF !" << this->model->getDataItem().at(index);
             if(this->model->getDataItem().at(index)->getIsCollidable()){
-                pointcX = qCos(M_PI/2)*(*newX) - qSin(M_PI/2)*(*newY) + unit->getGraphicData()->pos().rx();
-                pointcY = qSin(M_PI/2)*(*newX) - qCos(M_PI/2)*(*newY) + unit->getGraphicData()->pos().ry();
+                *newX = qCos(M_PI/2)*(*newX) - qSin(M_PI/2)*(*newY);
+                *newY = qSin(M_PI/2)*(*newX) + qCos(M_PI/4)*(*newY);
             }
         }
     }
@@ -352,8 +351,8 @@ void Game::manageCollide(Unit * unit, qreal *newX, qreal *newY)
         if ((index = this->findInModelWithQGraphicItem(qgi)) >= 0) { // c'est un item
             qDebug() << "PAF !" << this->model->getDataItem().at(index);
             if(this->model->getDataItem().at(index)->getIsCollidable()){
-                pointcX = qCos(M_PI/2)*(*newX) - qSin(M_PI/2)*(*newY) + unit->getGraphicData()->pos().rx();
-                pointcY = qSin(M_PI/2)*(*newX) - qCos(M_PI/2)*(*newY) + unit->getGraphicData()->pos().ry();
+                *newX = qCos(M_PI/2)*(*newX) - qSin(M_PI/2)*(*newY);
+                *newY = qSin(M_PI/2)*(*newX) + qCos(M_PI/2)*(*newY);
             }
         }
     }
@@ -362,8 +361,8 @@ void Game::manageCollide(Unit * unit, qreal *newX, qreal *newY)
         if ((index = this->findInModelWithQGraphicItem(qgi)) >= 0) { // c'est un item
             qDebug() << "PAF !" << this->model->getDataItem().at(index);
             if(this->model->getDataItem().at(index)->getIsCollidable()){
-                pointcX = qCos(M_PI/2)*(*newX) - qSin(M_PI/2)*(*newY) + unit->getGraphicData()->pos().rx();
-                pointcY = qSin(M_PI/2)*(*newX) - qCos(M_PI/2)*(*newY) + unit->getGraphicData()->pos().ry();
+                *newX = qCos(M_PI/2)*(*newX) - qSin(M_PI/2)*(*newY);
+                *newY = qSin(M_PI/2)*(*newX) + qCos(M_PI/2)*(*newY);
             }
         }
     }
@@ -372,15 +371,15 @@ void Game::manageCollide(Unit * unit, qreal *newX, qreal *newY)
         if ((index = this->findInModelWithQGraphicItem(qgi)) >= 0) { // c'est un item
             qDebug() << "PAF !" << this->model->getDataItem().at(index);
             if(this->model->getDataItem().at(index)->getIsCollidable()){
-                pointcX = qCos(M_PI/2)*(*newX) - qSin(M_PI/2)*(*newY) + unit->getGraphicData()->pos().rx();
-                pointcY = qSin(M_PI/2)*(*newX) - qCos(M_PI/2)*(*newY) + unit->getGraphicData()->pos().ry();
+                *newX = qCos(M_PI/2)*(*newX) - qSin(M_PI/2)*(*newY);
+                *newY = qSin(M_PI/2)*(*newX) + qCos(M_PI/2)*(*newY);
             }
         }
     }
     else {
         qDebug() << "ca va !";
     }
-    qDebug() << "new point :" << pointcX << ", " << pointcY;
+    qDebug() << "new point :" << *newX << ", " << *newY;
     //qDebug() << "new x,y :" << *newX << ", " << *newY;
 }
 int Game::findInModelWithQGraphicItem(QGraphicsItem *qgi) {
