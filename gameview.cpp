@@ -95,15 +95,11 @@ void GameView::on_pauseButton_clicked()
     this->control->pause();
 }
 
-void GameView::mousePressEvent(QMouseEvent *event){
-    int posX = event->pos().x();
-    int posY = event->pos().y();
-    qDebug() << this->ui->graphicsView->scene()->height();
-    qDebug() << this->ui->graphicsView->scene()->width();
+void GameView::mousePressEvent(QMouseEvent *event)
+{
     QPointF * point = new QPointF(this->ui->graphicsView->mapFromGlobal(event->pos()));
-    qDebug() << "x/y pos mapToGlobal : " << point;
-
-    if(point->rx() >= 0 && point->rx() <= this->ui->graphicsView->scene()->width() && point->ry() >= 0 && point->ry() <= this->ui->graphicsView->scene()->height() ) {
+    if(point->rx() >= 0 && point->rx() <= this->ui->graphicsView->scene()->width() && point->ry() >= 0 && point->ry() <= this->ui->graphicsView->scene()->height() )
+    {
         emit newPoint(point);
     }
 }

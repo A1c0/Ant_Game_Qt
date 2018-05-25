@@ -19,9 +19,8 @@ void Soldier::setPath(QList<QPointF*> path)
 {
     if(path.size() != 0)
     {
-        QListIterator<QPointF*> it(path);
-        {
-            this->addMovePoint(it.next());
+        foreach (QPointF * points, path) {
+            this->addMovePoint(points);
         }
         this->addMovePoint(new QPointF(NP_X,NP_Y));
     }

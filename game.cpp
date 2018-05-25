@@ -344,18 +344,11 @@ void Game::addPathPoint(QPointF * p) {
 
 void Game::loopSoldiers()
 {
-    QListIterator<Unit*> it(this->model->getDataUnit());
-    while(it.hasNext())
+    foreach (Unit * units, this->model->getDataUnit())
     {
-        if(it.peekNext()->getMovePoints()->size() == 0)
-        {
-            it.next()->setPath(this->model->getPathPointList());
-        }
-        else
-        {
-            it.next();
-        }
-    }
+        if(units->getMovePoints()->size() == 0)
+            units->setPath(this->model->getPathPointList());
+     }
 }
 
 void Game::clearPath()
@@ -453,3 +446,73 @@ void Game::getDistance(Unit * first, Unit * second)
         }
     }
 }
+/*
+THISIS PROTOTYPE
+
+void Game::manageCollide(Unit * unit, qreal *newX, qreal *newY)
+{
+    qDebug() << "before new:" << *newX << "/ " << *newY;
+    qDebug() << "before point:" << *newX + unit->getGraphicData()->pos().rx() << "/ " << *newY + unit->getGraphicData()->pos().ry();
+    qreal  newXb = *newX;
+    qreal  newYb = *newY;
+    QGraphicsItem * qgi;
+    int index = 0;
+    QPointF * currentPos = new QPointF(unit->getGraphicData()->pos().rx(), unit->getGraphicData()->pos().ry());
+    if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + *newX, currentPos->ry() + *newY), QTransform())) == NULL) {
+        qDebug() << "PAF avant !";
+        if ((index = this->findInModelWithQGraphicItem(qgi)) >= 0) { // c'est un item
+            qDebug() << "PAF !" << this->model->getDataItem().at(index);
+            if(this->model->getDataItem().at(index)->getIsCollidable()){
+                *newX = qCos(M_PI/2)*(newXb) - qSin(M_PI/2)*(newYb);
+                *newY = qSin(M_PI/2)*(newXb) + qCos(M_PI/2)*(newYb);
+            }
+        }
+    }
+    else if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + *newX + unit->getGraphicData()->pixmap().width(), currentPos->ry() + *newY + unit->getGraphicData()->pixmap().height()), QTransform())) == NULL) {
+        qDebug() << "PAF avant !";
+        if ((index = this->findInModelWithQGraphicItem(qgi)) >= 0) { // c'est un item
+            qDebug() << "PAF !" << this->model->getDataItem().at(index);
+            if(this->model->getDataItem().at(index)->getIsCollidable()){
+                *newX = qCos(M_PI/2)*(newXb) - qSin(M_PI/2)*(newYb);
+                *newY = qSin(M_PI/2)*(newXb) + qCos(M_PI/2)*(newYb);
+            }
+        }
+    }
+    else if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + *newX, currentPos->ry() + *newY + unit->getGraphicData()->pixmap().height()), QTransform())) == NULL) {
+        qDebug() << "PAF avant !";
+        if ((index = this->findInModelWithQGraphicItem(qgi)) >= 0) { // c'est un item
+            qDebug() << "PAF !" << this->model->getDataItem().at(index);
+            if(this->model->getDataItem().at(index)->getIsCollidable()){
+                *newX = qCos(M_PI/2)*(newXb) - qSin(M_PI/2)*(newYb);
+                *newY = qSin(M_PI/2)*(newXb) + qCos(M_PI/2)*(newYb);
+            }
+        }
+    }
+    else if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + *newX + unit->getGraphicData()->pixmap().width(), currentPos->ry() + *newY), QTransform())) == NULL) {
+        qDebug() << "PAF avant !";
+        if ((index = this->findInModelWithQGraphicItem(qgi)) >= 0) { // c'est un item
+            qDebug() << "PAF !" << this->model->getDataItem().at(index);
+            if(this->model->getDataItem().at(index)->getIsCollidable()){
+                *newX = qCos(M_PI/2)*(newXb) - qSin(M_PI/2)*(newYb);
+                *newY = qSin(M_PI/2)*(newXb) + qCos(M_PI/2)*(newYb);
+            }
+        }
+    }
+    else {
+        qDebug() << "ca va !";
+    }
+    qDebug() << "new point :" << *newX << ", " << *newY;
+    //qDebug() << "new x,y :" << *newX << ", " << *newY;
+}
+int Game::findInModelWithQGraphicItem(QGraphicsItem *qgi) {
+    foreach (Item * item, this->model->getDataItem())
+    {
+        if (qgi->pos().rx() == item->getGraphicData()->pos().rx() && qgi->pos().ry() == item->getGraphicData()->pos().ry())
+        {
+            qDebug() << this->model->getDataItem().indexOf(item);
+            return this->model->getDataItem().indexOf(item);
+        }
+    }
+    return -1;
+}
+*/

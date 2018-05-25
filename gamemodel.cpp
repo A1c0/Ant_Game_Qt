@@ -6,7 +6,7 @@ GameModel::GameModel()
     dataUnit = *(new QList<Unit*>());
     foodSupplyPos = new QPointF(FS_X,FS_Y);
     nestPos = new QPointF(NP_X,NP_Y);
-    foodSupply = 200;
+    foodSupply = 500;
     waveNumber = 0;
     this->encounterSound = false;
 }
