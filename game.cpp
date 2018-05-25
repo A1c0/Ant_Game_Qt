@@ -31,19 +31,19 @@ Game::Game(GameModel *model, GameView *view) :
     timer5 = new QTimer(this);
     this->connect(timer5, SIGNAL(timeout()), this, SLOT(loopSoldiers()));
     view->setControl(this);
-    timer1->setInterval(40);
-    timer2->setInterval(40);
-    timer5->setInterval(40);
+    timer1->setInterval(16);
+    timer2->setInterval(16);
+    timer5->setInterval(16);
     timer6 = new QTimer(this);
     this->connect(timer6, SIGNAL(timeout()), this, SLOT(createWave()));
-    timer6->setInterval(30000);
+    timer6->setInterval(25000);
     timer7 = new QTimer();
     this->connect(timer7, SIGNAL(timeout()), this, SLOT(updateHUD()));
-    timer7->setInterval(24);
+    timer7->setInterval(16);
     init_item();
     bgmF = new QMediaPlayer;
     bgmF->setMedia(QUrl("qrc:/bgm2/ressources_ant_game/bgm1.mp3"));
-    bgmF->setVolume(50);
+    bgmF->setVolume(100);
     this->connect(this->view, SIGNAL(newPoint(QPointF*)), this, SLOT(addPathPoint(QPointF*)));
 }
 
@@ -61,15 +61,17 @@ void Game::init_item()
     this->model->addItem(new Item(new QPointF(360,200), ":/item/ressources_ant_game/Feuille_2.gif", 100, 100));
     this->model->addUnit((new Harvester(this->model->getNestPos())));
     this->view->foodDisplay(this->model->getFoodSupply());
-    this->view->update(this->model->getDataItem());
-    this->view->update(this->model->getDataUnit());
-    foreach (Item * item, this->model->getDataItem())
+    this->view->update();
+    this->view->update();
+    QListIterator<Item*> it(this->model->getDataItem());
+    while(it.hasNext())
     {
-        this->view->add_item(item);
+        this->view->add_item(it.next());
     }
-    foreach (Unit * unit, this->model->getDataUnit())
+    QListIterator<Unit*> it2(this->model->getDataUnit());
+    while(it2.hasNext())
     {
-        this->view->add_item(unit);
+        this->view->add_item(it2.next());
     }
 }
 
@@ -77,9 +79,9 @@ void Game::init_item()
 void Game::spawnHarvester()
 {
     this->model->addUnit(new Harvester(this->model->getNestPos()));
-    this->view->increaseHarvester();
     this->view->add_item(this->model->getDataUnit().last());
-    this->view->update(this->model->getDataUnit());
+    this->view->increaseHarvester();
+    this->view->update();
     this->view->activateHarvesterCreate();
 }
 
@@ -89,7 +91,7 @@ void Game::spawnSoldier()
     this->model->getDataUnit().last()->setPath(this->model->getPathPointList());
     this->view->increaseSoldier();
     this->view->add_item(this->model->getDataUnit().last());
-    this->view->update(this->model->getDataUnit());
+    this->view->update();
     this->view->activateSoldierCreate();
 }
 
@@ -127,28 +129,35 @@ void Game::createSoldier()
 
 void Game::mainProcess()
 {
-    foreach (Unit* unit, this->model->getDataUnit()) {
-        if(unit->getMovePoints()->size() != 0)
+    QListIterator<Unit*> it(this->model->getDataUnit());
+    while(it.hasNext())
+    {
+        QListIterator<Unit*> it2(this->model->getDataUnit());
+        while(it2.hasNext())
         {
-            if(unit->getCanHarvest() == true)
-            {
-                unit->harvest();
-            }
-            else if(unit->getCanAttack() == true)
-            {
-                Unit * target = unit->getTarget();
-                this->fight(unit, target);
-            }
+            if(it.peekNext() != it2.peekNext())
+                this->getDistance(it.peekNext(),it2.next());
             else
-            {
-               this->advance(unit);
-            }
+                it2.next();
+        }
+        if(it.peekNext()->getCanHarvest() == true)
+        {
+            it.next()->harvest();
+        }
+        else if(it.peekNext()->getCanAttack() == true)
+        {
+            Unit * target = it.peekNext()->getTarget();
+            this->fight(it.next(), target);
+        }
+        else
+        {
+            if(it.peekNext()->getIsAlive() == true || it.peekNext()->getIsHarvester())
+                this->advance(it.next());
         }
     }
-    this->view->foodDisplay(this->model->getFoodSupply());
 }
 void Game::update(){
-    this->view->update(this->model->getDataUnit());
+    this->view->update();
 }
 
 
@@ -234,6 +243,12 @@ void Game::advance(Unit * unit)
         this->model->addFood(10);
         unit->setBringBack(false);
     }
+    if(unit->getIsEnemy() == true && (unit->getGraphicData()->pos().rx() == NP_X && unit->getGraphicData()->pos().ry() == NP_Y ))
+    {
+        this->pause();
+        this->view->gameOver();
+        this->sfx5();
+    }
 }
 
 void Game::sfx1()
@@ -261,10 +276,17 @@ void Game::sfx3()
 }
 void Game::sfx4()
 {
-
+    QSoundEffect *player = new QSoundEffect;
+    player->setSource(QUrl::fromLocalFile(":/bgm2/ressources_ant_game/sfx4.wav"));
+    player->setVolume(100);
+    player->play();
 }
-void Game::bgm()
+void Game::sfx5()
 {
+    QSoundEffect *player = new QSoundEffect;
+    player->setSource(QUrl::fromLocalFile(":/bgm2/ressources_ant_game/sfx5.wav"));
+    player->setVolume(100);
+    player->play();
 }
 
 void Game::start()
@@ -291,21 +313,29 @@ void Game::pause()
 
 void Game::fight(Unit * attacker, Unit * target)
 {
-    target->setHealthPoints(target->getHealthPoints() - attacker->getAttackSpeed()*attacker->getAttackValue());
-    attacker->setHealthPoints(attacker->getHealthPoints() - target->getAttackSpeed()*target->getAttackValue());
-    if(target->getHealthPoints() <= 0)
+    if(target->getIsAlive() == true && attacker->getIsAlive() == true)
     {
-        int index = this->model->getDataUnit().indexOf(target);
-        attacker->setCanAttack(false);
-        this->model->getDataUnit().removeAt(index);
+        float aDamage = attacker->getAttackSpeed() * attacker->getAttackValue();
+        float tLife = target->getHealthPoints();
+        if(target != nullptr)
+        target->setHealthPoints(tLife - aDamage);
+        if(target->getHealthPoints() <= 0)
+        {
+            attacker->setCanAttack(false);
+            if(target->getIsAlive() == true)
+            {
+                this->view->remove_item(target);
+            }
+            target->setIsAlive(false);
+            this->advance(attacker);
+            this->model->setEncounterSound(false);
+            if(attacker->getTarget() != nullptr)
+            {
+                attacker->setTarget(nullptr);
+            }
+        }
     }
-    if(attacker->getHealthPoints() <= 0)
-    {
-        int index2 = this->model->getDataUnit().indexOf(attacker);
-        if(target)
-            target->setCanAttack(false);
-        this->model->getDataUnit().removeAt(index2);
-    }
+
 }
 
 void Game::addPathPoint(QPointF * p) {
@@ -314,55 +344,23 @@ void Game::addPathPoint(QPointF * p) {
 
 void Game::loopSoldiers()
 {
-    foreach (Unit * units, this->model->getDataUnit()) {
-        if(units->getMovePoints()->size() == 0)
-            units->setPath(this->model->getPathPointList());
+    QListIterator<Unit*> it(this->model->getDataUnit());
+    while(it.hasNext())
+    {
+        if(it.peekNext()->getMovePoints()->size() == 0)
+        {
+            it.next()->setPath(this->model->getPathPointList());
+        }
+        else
+        {
+            it.next();
+        }
     }
 }
 
 void Game::clearPath()
 {
     this->model->clearPathPoints();
-}
-
-void Game::ManageCollide(Unit * unit, qreal newX, qreal newY)
-{
-    QGraphicsItem * qgi;
-    QPointF * currentPos = new QPointF(unit->getGraphicData()->pos().rx(), unit->getGraphicData()->pos().ry());
-    if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + newX, currentPos->ry() + newY), QTransform())) == NULL) {
-        if (this->findInModelWithQGraphicItem(qgi) >= 0) {
-            qDebug() << "PAF !" << this->model->getDataItem().at(this->findInModelWithQGraphicItem(qgi));
-        }
-    }
-    else if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + newX + unit->getGraphicData()->pixmap().width(), currentPos->ry() + newY + unit->getGraphicData()->pixmap().height()), QTransform())) == NULL) {
-        if (this->findInModelWithQGraphicItem(qgi) >= 0) {
-            qDebug() << "PAF !" << this->model->getDataItem().at(this->findInModelWithQGraphicItem(qgi));
-        }
-    }
-    else if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + newX, currentPos->ry() + newY + unit->getGraphicData()->pixmap().height()), QTransform())) == NULL) {
-        if (this->findInModelWithQGraphicItem(qgi) >= 0) {
-            qDebug() << "PAF !" << this->model->getDataItem().at(this->findInModelWithQGraphicItem(qgi));
-        }
-    }
-    else if (!(qgi = this->view->getScene()->itemAt(QPointF(currentPos->rx() + newX + unit->getGraphicData()->pixmap().width(), currentPos->ry() + newY), QTransform())) == NULL) {
-        if (this->findInModelWithQGraphicItem(qgi) >= 0) {
-            qDebug() << "PAF !" << this->model->getDataItem().at(this->findInModelWithQGraphicItem(qgi));
-        }
-    }
-    else {
-        qDebug() << "ca va !";
-    }
-}
-int Game::findInModelWithQGraphicItem(QGraphicsItem *qgi) {
-    foreach (Item * item, this->model->getDataItem())
-    {
-        if (qgi->pos().rx() == item->getGraphicData()->pos().rx() && qgi->pos().ry() == item->getGraphicData()->pos().ry())
-        {
-            qDebug() << this->model->getDataItem().indexOf(item);
-            return this->model->getDataItem().indexOf(item);
-        }
-    }
-    return -1;
 }
 
 void Game::waveManagement()
@@ -408,11 +406,50 @@ void Game::updateWaveNumber()
 void Game::updateHUD()
 {
     this->updateWaveNumber();
-    if(clock->elapsed() >= 30000)
+    if(clock->elapsed() >= 25000)
     {
         clock->restart();
         this->view->wavePrgReset();
     }
     this->updateWaveNumber();
     this->view->wavePrgSet(clock->elapsed());
+    this->view->foodDisplay(this->model->getFoodSupply());
+}
+
+void Game::getDistance(Unit * first, Unit * second)
+{
+    qreal firstX = first->getGraphicData()->pos().rx();
+    qreal secondX = second->getGraphicData()->pos().rx();
+    qreal xdist = qFabs( firstX - secondX);
+    qreal firstY = first->getGraphicData()->pos().ry();
+    qreal secondY = second->getGraphicData()->pos().ry();
+    qreal ydist = qFabs( firstY - secondY);
+    if(xdist <= 75 && ydist <= 75)
+    {
+        if(first->getIsEnemy() != second->getIsEnemy())
+        {
+            if(first->getIsAlive() == false || second->getIsAlive() == false)
+            {
+
+            }
+            else
+            {
+                first->setCanAttack(true);
+                if(second != nullptr)
+                {
+                    first->setTarget(second);
+                    if(this->model->getEncounterSound() == false)
+                    {
+                        this->model->setEncounterSound(true);
+                        this->sfx4();
+                    }
+                }
+                second->setCanAttack(true);
+                if(first != nullptr)
+                {
+                    second->setTarget(first);
+                }
+            }
+        }
+    }
 }

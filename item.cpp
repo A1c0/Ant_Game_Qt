@@ -4,7 +4,6 @@
 ItemProp::ItemProp(QPointF * pos, QString imagePath, int xSize, int ySize)
 {
     setPos(pos->rx(), pos->ry());
-    // drew the rect
     QPixmap img(imagePath);
 
     QPixmap newPixmap = img.scaled(QSize(xSize,ySize),  Qt::KeepAspectRatio);

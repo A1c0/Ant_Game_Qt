@@ -25,15 +25,16 @@ public:
     void setControl(Game *control) {
         this->control = control;
     }
-    void update(QList<Item*> data);
-    void update(QList<Unit*> data);
+    void update();
     void test();
     void add_item(Item * item);
+    void remove_item(Item * item);
     int getSceneHeight();
     int getSceneWidth();
     void foodDisplay(int nbr);
     void increaseHarvester();
     void increaseSoldier();
+    void decreaseSoldier();
     void mousePressEvent(QMouseEvent *event);
     QGraphicsScene * getScene();
     void activateSoldierCreate();
@@ -43,6 +44,7 @@ public:
     void updateDisplayLCD(int newVal);
     void wavePrgReset();
     void wavePrgSet(int elapsed);
+    void gameOver();
 
 
 

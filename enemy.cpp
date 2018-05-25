@@ -6,9 +6,13 @@ Enemy::Enemy(QPointF * pos):
     this->mouvements = new QList<QPointF*>();
     QPointF * nest = new QPointF(NP_X, NP_Y);
     this->addMovePoint(nest);
-    this->moveSpeed = 1;
-    this->isEnnemy = true;
+    this->moveSpeed = 0.4;
+    this->isEnemy = true;
     this->canAttack = false;
     this->canHarvest = false;
+    this->healthPoints = 500;
+    this->attackSpeed = 0.1;
+    this->attackValue = 50;
+    this->isAlive = true;
 }
 

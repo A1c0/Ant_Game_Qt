@@ -22,6 +22,9 @@ public:
     bool getBringBack();
     void setBringBack(bool condition);
     bool getIsHarvester();
+    void setCanAttack(bool condition);
+    void setIsAlive(bool condition);
+    bool getIsAlive();
 private:
     int harvestTime;
 };

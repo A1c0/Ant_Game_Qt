@@ -2,6 +2,8 @@
     <qresource prefix="/bgm2">
         <file>ressources_ant_game/bgmfx.mp3</file>
         <file>ressources_ant_game/bgm1.mp3</file>
+        <file>ressources_ant_game/sfx4.wav</file>
+        <file>ressources_ant_game/sfx5.wav</file>
     </qresource>
     <qresource prefix="/gif">
         <file>ressources_ant_game/enemy.gif</file>

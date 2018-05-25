@@ -20,18 +20,16 @@ public:
     void attack(Unit *target);
     void die();
     //getters :
-    int getHealthPoints() const {
-        return this->healthPoints;
-    }
+    float getHealthPoints();
     float getMoveSpeed() const;
-    float getAttackSpeed() const {
+    float getAttackSpeed(){
         return this->attackSpeed;
     }
     int getAttackValue() const {
         return this->attackValue;
     }
     //seters :
-    void setHealthPoints(int newHealthPoints){
+    void setHealthPoints(float newHealthPoints){
         this->healthPoints = newHealthPoints;
     }
     void addMovePoint(QPointF *nextPoint);
@@ -47,10 +45,13 @@ public:
     void setCanAttack(bool condition);
     void setTarget(Unit * target);
     virtual void setPath(QList<QPointF*> path);
-    virtual void loopPoints();
+    bool getIsEnemy();
+    bool getIsAlive();
+    void setIsAlive(bool condition);
+
 protected:
     QList<QPointF*> *mouvements;
-    int healthPoints; //Defines the health of the unit.
+    float healthPoints; //Defines the health of the unit.
     float moveSpeed; //Defines the movement speed of the unit.
     float attackSpeed; //Defines the attack speed of the unit per second. For example, an attackSpeed value of 1 is 1 hit per second.
     int attackValue; //Defines the attack value of the unit (total DPS is calculated using attackSpeed * attack)
@@ -58,6 +59,7 @@ protected:
     bool bringBack;
     bool canAttack = false;
     Unit * target = nullptr;
-    bool isEnnemy;
+    bool isEnemy;
+    bool isAlive;
 };
 #endif // UNIT_H

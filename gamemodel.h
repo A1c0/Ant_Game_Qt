@@ -17,6 +17,7 @@ private:
     QPointF * nestPos;
     QList<QPointF*> pathPointList;
     int waveNumber;
+    bool encounterSound;
 public:
     GameModel();
     void setDataItem(const QList<Item*> &value);
@@ -33,6 +34,8 @@ public:
     QList<QPointF*> getPathPointList();
     void setWaveNumber(int number);
     int getWaveNumber();
+    bool getEncounterSound();
+    void setEncounterSound(bool condition);
 };
 
 #endif // GAMEMODEL_H

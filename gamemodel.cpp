@@ -8,6 +8,7 @@ GameModel::GameModel()
     nestPos = new QPointF(NP_X,NP_Y);
     foodSupply = 200;
     waveNumber = 0;
+    this->encounterSound = false;
 }
 
 QList<Item *> GameModel::getDataItem()
@@ -79,4 +80,12 @@ void GameModel::setWaveNumber(int number)
 int GameModel::getWaveNumber()
 {
     return this->waveNumber;
+}
+bool GameModel::getEncounterSound()
+{
+    return this->encounterSound;
+}
+void GameModel::setEncounterSound(bool condition)
+{
+    this->encounterSound = condition;
 }

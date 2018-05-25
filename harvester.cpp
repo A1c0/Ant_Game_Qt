@@ -5,11 +5,14 @@ Harvester::Harvester(QPointF *pos):
     Ant(pos, ":/item/ant/ressources_ant_game/ant_static.gif")
 {
     this->setCollidable(false);
-    this->moveSpeed = 10;
+    this->moveSpeed = 5;
     this->canHarvest = false;
     this->loopPoints();
-    this->harvestTime = 15;
-    this->isEnnemy = false;
+    this->harvestTime = 30;
+    this->isEnemy = false;
+    this->attackSpeed = 0;
+    this->attackValue = 0;
+    this->setIsAlive(false);
 }
 
 void Harvester::harvest()
@@ -20,7 +23,7 @@ void Harvester::harvest()
     {
         this->setBringBack(true);
         this->canHarvest = false;
-        this->harvestTime = 15;
+        this->harvestTime = 30;
         this->loopPoints();
     }
 }
@@ -47,6 +50,21 @@ void Harvester::setBringBack(bool condition)
     this->bringBack = condition;
 }
 bool Harvester::getIsHarvester()
+{
+    return true;
+}
+
+void Harvester::setCanAttack(bool condition)
+{
+    this->canAttack = false;
+}
+
+void Harvester::setIsAlive(bool condition)
+{
+    this->isAlive = false;
+}
+
+bool Harvester::getIsAlive()
 {
     return true;
 }

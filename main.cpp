@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     GameView w;
     GameModel m;
 
-    Game *active = new Game(&m, &w);
+    Game *mainGame = new Game(&m, &w);
     w.showFullScreen();
     return a.exec();
 }

@@ -4,23 +4,7 @@
 Unit::Unit(QPointF * pos, QString imagePath, int xSize, int ySize):
     Item(pos, imagePath, xSize, ySize)
 {
-    this->mouvements = new QList<QPointF*>();/*
-    this->mouvements->append(new QPointF(200,200));
-    this->mouvements->append(new QPointF(600,600));
-    this->mouvements->append(new QPointF(600,200));
-    this->mouvements->append(new QPointF(600,600));
-    this->mouvements->append(new QPointF(1000,200));
-    this->mouvements->append(new QPointF(600,600));
-    this->mouvements->append(new QPointF(1000,600));
-    this->mouvements->append(new QPointF(600,600));
-    this->mouvements->append(new QPointF(1000,1000));
-    this->mouvements->append(new QPointF(600,600));
-    this->mouvements->append(new QPointF(600,1000));
-    this->mouvements->append(new QPointF(600,600));
-    this->mouvements->append(new QPointF(200,1000));
-    this->mouvements->append(new QPointF(600,600));
-    this->mouvements->append(new QPointF(200,600));
-    this->mouvements->append(new QPointF(600,600));*/
+    this->mouvements = new QList<QPointF*>();
     this->canMove = true;
     this->healthPoints = 100;
     this->canHarvest = false;
@@ -86,5 +70,23 @@ void Unit::setCanAttack(bool condition)
     this->canAttack = condition;
 }
 
+float Unit::getHealthPoints()
+{
+    return this->healthPoints;
+}
 void Unit::setPath(QList<QPointF*> path){}
-void Unit::loopPoints(){}
+
+bool Unit::getIsEnemy()
+{
+    return this->isEnemy;
+}
+
+void Unit::setIsAlive(bool condition)
+{
+    this->isAlive = condition;
+}
+
+bool Unit::getIsAlive()
+{
+    return this->isAlive;
+}

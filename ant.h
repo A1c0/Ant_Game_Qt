@@ -18,9 +18,6 @@ public:
     Ant(QPointF *pos, QString imagePath);
     ~Ant();
 private:
-    //bool const owner = 0; //owner represents the controller of the unit (either 0 for player or 1 for the CPU) --> Innutile car Ant ne sera que allié
-    int const cost = 200; //Cost in food of the unit.
-    bool selected = false;
 };
 
 #endif // ANT_H

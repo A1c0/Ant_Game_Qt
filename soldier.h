@@ -17,6 +17,5 @@ public:
     Soldier(QPointF * pos);
     ~Soldier();
     void setPath(QList<QPointF*> path);
-    void loopPoints();
 };
 #endif // SOLDIER_H

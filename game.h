@@ -51,6 +51,7 @@ public:
     int findInModelWithQGraphicItem(QGraphicsItem *qgi);
     void waveManagement();
     void updateWaveNumber();
+    void getDistance(Unit * first, Unit * second);
 
 public slots:
     void update();
@@ -60,7 +61,7 @@ public slots:
     void sfx2();
     void sfx3();
     void sfx4();
-    void bgm();
+    void sfx5();
     void spawnHarvester();
     void spawnSoldier();
     void fight(Unit * attacker, Unit * target);
